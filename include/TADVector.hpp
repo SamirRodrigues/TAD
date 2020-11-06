@@ -4,8 +4,13 @@
 #include <iostream>
 
 template <class T>
-class TADVector 
+class vector 
 {
+    private:
+        T * elements;
+        int capacity;
+        int size;
+    
     public:
 
         TADVector();
@@ -13,24 +18,19 @@ class TADVector
 
         void helloWorld();  
         void setName(T value);
-        T getName();
-        
         void add(T valueA, T valueB);
+        T getName();
         T getResult();
 
 
         //T TADVector operator+(TADVector); 
-
-    private:
-        T name;
-        T result;
 
 };
 
 template <class T>
 TADVector<T>::TADVector()
 {
-
+    
 }
 
 template <class T>
