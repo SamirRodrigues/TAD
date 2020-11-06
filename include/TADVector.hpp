@@ -2,9 +2,8 @@
 #define __TADVECTOR_H__
 
 #include <iostream>
-#include <string>
 
-template <typename T>
+template <class T>
 class TADVector 
 {
     public:
@@ -12,15 +11,15 @@ class TADVector
         TADVector();
         ~TADVector();
 
-        T helloWorld();  
-        T setName(T value);
+        void helloWorld();  
+        void setName(T value);
         T getName();
         
         void add(T valueA, T valueB);
         T getResult();
 
 
-        T TADVector operator+(TADVector); 
+        //T TADVector operator+(TADVector); 
 
     private:
         T name;
@@ -28,51 +27,49 @@ class TADVector
 
 };
 
-template <typename T>
+template <class T>
 TADVector<T>::TADVector()
 {
 
 }
 
-template <typename T>
+template <class T>
 TADVector<T>::~TADVector()
 {
 
 }
 
-template <typename T>
-T TADVector<T>::helloWorld()
+template <class T>
+void TADVector<T>::helloWorld()
 {
     std::cout << "Hello World" << std::endl;
 }
 
-template <typename T>
-T TADVector<T>::setName(T value)
+template <class T>
+void TADVector<T>::setName(T value)
 {
     name = value;
 }
 
-template <typename T>
+template <class T>
 T TADVector<T>::getName()
 {
     return name;
 }
 
-template <typename T>
+template <class T>
 void TADVector<T>::add(T valueA, T valueB)
 {
     result = valueA + valueB;
 }
 
-template <typename T>
+template <class T>
 T TADVector<T>::getResult()
 {
     return result; 
 }
 
-template <typename T>
-T TADVector<T>::operator+(T value);
-    T newvalue;
+
 
      
 
