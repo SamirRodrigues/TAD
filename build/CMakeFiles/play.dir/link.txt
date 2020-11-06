@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/play.dir/src/main.cpp.o  -o play 

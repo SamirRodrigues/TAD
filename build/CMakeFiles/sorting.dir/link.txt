@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/sorting.dir/src/TADVector.cpp.o  -o sorting 

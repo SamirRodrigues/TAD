@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(SortingAlgorithms VERSION 0.1 LANGUAGES CXX )
+project(TADVector VERSION 0.1 LANGUAGES CXX )
 
 # set the compiling flags
 set ( CMAKE_CXX_FLAGS "-Wall" )
@@ -15,13 +15,11 @@ set ( CMAKE_CXX_FLAGS "-g" )
 include_directories( include )
 
 # define the sources for the project
-add_executable( sorting
+add_executable( play
                 src/main.cpp # This has the application main().
-                src/sortingAlgorithms.cpp 
-                src/genericFunctions.cpp
                 )
 
 # define C++11 standard
-set_property(TARGET sorting PROPERTY CXX_STANDARD 11)
+set_property(TARGET play PROPERTY CXX_STANDARD 11)
 
 # The end

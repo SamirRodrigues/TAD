@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/email/Documents/GitHub/TAD/include/TADVector.hpp
+iostream
+-
+string
+-
+
+/mnt/c/Users/email/Documents/GitHub/TAD/src/main.cpp
+iostream
+-
+string
+-
+../include/TADVector.hpp
+/mnt/c/Users/email/Documents/GitHub/TAD/include/TADVector.hpp
+
