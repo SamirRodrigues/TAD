@@ -111,44 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named play
+# Target rules for targets named run_tests
 
 # Build rule for target.
-play: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 play
-.PHONY : play
+run_tests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests
+.PHONY : run_tests
 
 # fast build rule for target.
-play/fast:
-	$(MAKE) -f CMakeFiles/play.dir/build.make CMakeFiles/play.dir/build
-.PHONY : play/fast
+run_tests/fast:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
+.PHONY : run_tests/fast
 
-src/main.o: src/main.cpp.o
+src/lib/test_manager.o: src/lib/test_manager.cpp.o
 
-.PHONY : src/main.o
+.PHONY : src/lib/test_manager.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/play.dir/build.make CMakeFiles/play.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/lib/test_manager.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/lib/test_manager.cpp.o
+.PHONY : src/lib/test_manager.cpp.o
 
-src/main.i: src/main.cpp.i
+src/lib/test_manager.i: src/lib/test_manager.cpp.i
 
-.PHONY : src/main.i
+.PHONY : src/lib/test_manager.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/play.dir/build.make CMakeFiles/play.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/lib/test_manager.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/lib/test_manager.cpp.i
+.PHONY : src/lib/test_manager.cpp.i
 
-src/main.s: src/main.cpp.s
+src/lib/test_manager.s: src/lib/test_manager.cpp.s
 
-.PHONY : src/main.s
+.PHONY : src/lib/test_manager.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/play.dir/build.make CMakeFiles/play.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/lib/test_manager.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/lib/test_manager.cpp.s
+.PHONY : src/lib/test_manager.cpp.s
+
+src/test/run_tests.o: src/test/run_tests.cpp.o
+
+.PHONY : src/test/run_tests.o
+
+# target to build an object file
+src/test/run_tests.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/test/run_tests.cpp.o
+.PHONY : src/test/run_tests.cpp.o
+
+src/test/run_tests.i: src/test/run_tests.cpp.i
+
+.PHONY : src/test/run_tests.i
+
+# target to preprocess a source file
+src/test/run_tests.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/test/run_tests.cpp.i
+.PHONY : src/test/run_tests.cpp.i
+
+src/test/run_tests.s: src/test/run_tests.cpp.s
+
+.PHONY : src/test/run_tests.s
+
+# target to generate assembly for a file
+src/test/run_tests.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/test/run_tests.cpp.s
+.PHONY : src/test/run_tests.cpp.s
 
 # Help Target
 help:
@@ -157,11 +184,14 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... play"
+	@echo "... run_tests"
 	@echo "... edit_cache"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/lib/test_manager.o"
+	@echo "... src/lib/test_manager.i"
+	@echo "... src/lib/test_manager.s"
+	@echo "... src/test/run_tests.o"
+	@echo "... src/test/run_tests.i"
+	@echo "... src/test/run_tests.s"
 .PHONY : help
 
 

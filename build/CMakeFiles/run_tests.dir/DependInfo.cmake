@@ -4,13 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/email/Documents/GitHub/TAD/src/TADVector.cpp" "/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/sorting.dir/src/TADVector.cpp.o"
+  "/mnt/c/Users/email/Documents/GitHub/TAD/src/lib/test_manager.cpp" "/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/run_tests.dir/src/lib/test_manager.cpp.o"
+  "/mnt/c/Users/email/Documents/GitHub/TAD/src/test/run_tests.cpp" "/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/run_tests.dir/src/test/run_tests.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
+  "../src/lib"
   )
 
 # Targets to which this target links.

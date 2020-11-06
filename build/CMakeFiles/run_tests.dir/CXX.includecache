@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/email/Documents/GitHub/TAD/include/MyIterator.hpp
+Vector.hpp
+/mnt/c/Users/email/Documents/GitHub/TAD/include/Vector.hpp
+
+/mnt/c/Users/email/Documents/GitHub/TAD/include/Vector.hpp
+MyIterator.hpp
+/mnt/c/Users/email/Documents/GitHub/TAD/include/MyIterator.hpp
+
+/mnt/c/Users/email/Documents/GitHub/TAD/src/lib/test_manager.cpp
+test_manager.h
+/mnt/c/Users/email/Documents/GitHub/TAD/src/lib/test_manager.h
+
+/mnt/c/Users/email/Documents/GitHub/TAD/src/lib/test_manager.h
+iostream
+-
+iomanip
+-
+algorithm
+-
+string
+-
+unordered_map
+-
+vector
+-
+
+/mnt/c/Users/email/Documents/GitHub/TAD/src/test/run_tests.cpp
+iostream
+-
+vector
+-
+../lib/test_manager.h
+/mnt/c/Users/email/Documents/GitHub/TAD/src/lib/test_manager.h
+../../include/Vector.hpp
+/mnt/c/Users/email/Documents/GitHub/TAD/include/Vector.hpp
+

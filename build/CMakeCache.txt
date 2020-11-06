@@ -103,7 +103,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=TADVector
+CMAKE_PROJECT_NAME:STATIC=TestManagerVector
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -155,10 +155,10 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-TADVector_BINARY_DIR:STATIC=/mnt/c/Users/email/Documents/GitHub/TAD/build
+TestManagerVector_BINARY_DIR:STATIC=/mnt/c/Users/email/Documents/GitHub/TAD/build
 
 //Value Computed by CMake
-TADVector_SOURCE_DIR:STATIC=/mnt/c/Users/email/Documents/GitHub/TAD
+TestManagerVector_SOURCE_DIR:STATIC=/mnt/c/Users/email/Documents/GitHub/TAD
 
 
 ########################
