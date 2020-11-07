@@ -7,10 +7,13 @@ class MyIterator
         // Below we have the iterator_traits common interface
         /// Difference type used to calculated distance between iterators.
         typedef std::ptrdiff_t difference_type;
+        typedef std::bidirectional_iterator_tag iterator_category; //!< Iterator category.
+
         typedef T value_type; //!< Value type the iterator points to.
         typedef T* pointer; //!< Pointer to the value type.
         typedef T& reference; //!< Reference to the value type.
-        typedef std::bidirectional_iterator_tag iterator_category; //!< Iterator category.
+
+
         MyIterator( );
         MyIterator& operator=( const MyIterator& ) = default;
         MyIterator( const MyIterator& ) = default;
