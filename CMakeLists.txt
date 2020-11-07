@@ -12,15 +12,13 @@ set ( CMAKE_CXX_FLAGS "-g" )
 
 ### [1] Test target
 # set the include path
-include_directories( include
-                     lib )
+include_directories( include )
 
 # Add the test target
-add_executable( run_tests
-                lib/test_manager.cpp
-                test/run_tests.cpp )
+add_executable( play
+                src/main.cpp )
 
 # define C++11 standard
-set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
+set_property(TARGET play PROPERTY CXX_STANDARD 11)
 
 # The end

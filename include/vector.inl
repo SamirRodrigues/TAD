@@ -3,7 +3,7 @@
 namespace sc
 {	
 	template <class T>
-	Vector<T>::Vector( size_type count )
+	vector<T>::vector( size_type count )
 	{
 		m_capacity = 2;
 
@@ -28,11 +28,11 @@ namespace sc
 		this->m_last = elements + count;
 		this->m_size = count;
 
-		if(debug) std::cout << "> Vector allocated with sucess!" << std::endl;
+		if(debug) std::cout << "> vector allocated with sucess!" << std::endl;
 	}
 
 	template <class T>
-	Vector<T>::Vector( void )
+	vector<T>::vector( void )
 	{
 		int temp_capacity = 2;		
 
@@ -42,11 +42,11 @@ namespace sc
 		this->m_size = 0; 
 		this->m_capacity = temp_capacity;
 
-		if(debug) std::cout << "> Vector allocated with sucess!" << std::endl;
+		if(debug) std::cout << "> vector allocated with sucess!" << std::endl;
 	}
 
 	template <class T>
-	Vector<T>::Vector( const Vector &other )
+	vector<T>::vector( const vector &other )
 	{
 		int temp_capacity;
 		if( other.size() > 2 )
@@ -77,7 +77,7 @@ namespace sc
 	}
 
 	template <class T>
-	Vector<T>::Vector( std::initializer_list<T> ilist )
+	vector<T>::vector( std::initializer_list<T> ilist )
 	{
 		int temp_capacity;	
 
@@ -110,7 +110,7 @@ namespace sc
 	}
 	
 	template <class InputIt>
-	Vector<InputIt>::Vector( InputIt *first, InputIt *last )
+	vector<InputIt>::vector( InputIt *first, InputIt *last )
 	{
 		int temp_capacity;		
 		int size = std::distance(first, last);
@@ -144,36 +144,36 @@ namespace sc
 	}
 
 	template <class T>
-	Vector<T>::~Vector()
+	vector<T>::~vector()
 	{
 		if(elements != NULL)
 		{
 			delete[] elements;
-			if(debug) std::cout << "> Vector deleted with sucess!" << std::endl;
+			if(debug) std::cout << "> vector deleted with sucess!" << std::endl;
 		}
 	}
 	
 	template <class T>
-	bool Vector<T>::empty()
+	bool vector<T>::empty()
 	{
 		return (m_size == 0 ? true : false);
 	}
 	
 	template <class T>
-	size_type Vector<T>::size() const
+	size_type vector<T>::size() const
 	{
 		return this->m_size;
 	}
 
 	
 	template <class T>
-	size_type Vector<T>::capacity() const
+	size_type vector<T>::capacity() const
 	{
 		return this->m_capacity;
 	}
 
 	template <class T>
-	void Vector<T>::reserve(size_type new_cap)
+	void vector<T>::reserve(size_type new_cap)
 	{
 		if( new_cap > m_capacity )
 		{
@@ -192,7 +192,7 @@ namespace sc
 	}
 
 	template <class T>
-	void Vector<T>::push_back( const T& value )
+	void vector<T>::push_back( const T& value )
 	{		
 		if( m_size < m_capacity )
 		{
@@ -208,7 +208,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::push_front(const T & value)
+	void vector<T>::push_front(const T & value)
 	{	
 		if(m_size <= 2)
 		{
@@ -242,7 +242,7 @@ namespace sc
 	}
 	
 	template <typename T>
-	void Vector<T>::pop_front()
+	void vector<T>::pop_front()
 	{
 		if(m_size != 0){
 			std::copy(m_first+1,m_last,m_first);
@@ -256,7 +256,7 @@ namespace sc
 	}
 	
 	template <typename T>
-	void Vector<T>::pop_back()
+	void vector<T>::pop_back()
 	{
 		if(m_size != 0){
 			m_size--;
@@ -269,7 +269,7 @@ namespace sc
 	}
 
 	template <typename T>
-	typename Vector<T>::iterator Vector<T>::insert(iterator pos, const T &value)
+	typename vector<T>::iterator vector<T>::insert(iterator pos, const T &value)
 	{
 		int distance = pos - m_first;
 
@@ -300,7 +300,7 @@ namespace sc
 	}
 
 	template <typename T>
-	typename Vector<T>::iterator Vector<T>::insert(iterator pos,iterator first, iterator last )
+	typename vector<T>::iterator vector<T>::insert(iterator pos,iterator first, iterator last )
 	{
 		int distance = last-first;
 		int first_index = pos-m_first;
@@ -339,7 +339,7 @@ namespace sc
 	}
 
 	template <typename T>
-	typename Vector<T>::iterator Vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
+	typename vector<T>::iterator vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
 	{
 		int first_index = pos-m_first;
 		if(1)
@@ -375,7 +375,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::clear(void)
+	void vector<T>::clear(void)
 	{
 		m_size = 0;
 		m_first = elements;
@@ -383,7 +383,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::assign(size_type count,  const T & value)
+	void vector<T>::assign(size_type count,  const T & value)
 	{
 		clear();
 		reserve(count);
@@ -397,7 +397,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::assign(iterator first, iterator last)
+	void vector<T>::assign(iterator first, iterator last)
 	{	
 		int distance = last-first;
 		clear();
@@ -411,7 +411,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::assign(std::initializer_list<T> ilist)
+	void vector<T>::assign(std::initializer_list<T> ilist)
 	{
 		if(m_capacity < ilist.size())
 		{
@@ -430,7 +430,7 @@ namespace sc
 	}
 
 	template <typename T>
-	void Vector<T>::shrink_to_fit(void)
+	void vector<T>::shrink_to_fit(void)
 	{
 		m_capacity = pow( 2, int(log2(m_size))+1 );
 		T *temp_elements = new T[m_capacity];
@@ -442,7 +442,7 @@ namespace sc
 	}
 
 	template <typename T>
-	typename Vector<T>::iterator Vector<T>::erase(iterator pos)
+	typename vector<T>::iterator vector<T>::erase(iterator pos)
 	{
 		int index = pos-m_first;
 		if(pos == end()-1 or pos == end())
@@ -470,7 +470,7 @@ namespace sc
 	} 
 
 	template <typename T>
-	typename Vector<T>::iterator Vector<T>::erase( iterator first, iterator last )
+	typename vector<T>::iterator vector<T>::erase( iterator first, iterator last )
 	{
 		int index = first-m_first;
 		int index_l = last-m_first;
@@ -484,32 +484,32 @@ namespace sc
 	} 
 
 	template <class T>
-	const T &Vector<T>::front() const
+	const T &vector<T>::front() const
 	{
 		return *(this->m_first);
 	}
 
 	template <class T>
-	const T &Vector<T>::back() const
+	const T &vector<T>::back() const
 	{
 		T *valid_l = this->m_last - 1;
 		return *valid_l;
 	}
 	
 	template <class T>
-	T &Vector<T>::at( size_type pos )
+	T &vector<T>::at( size_type pos )
 	{
 		return ( this->elements[pos] );
 	}
 
 	template <class T>
-	T& Vector<T>::operator[]( size_type pos )
+	T& vector<T>::operator[]( size_type pos )
 	{
 		return this->elements[pos]; 
 	}
 
 	template <class T>
-	Vector<T> &Vector<T>::operator=( const Vector<T> &rhs )
+	vector<T> &vector<T>::operator=( const vector<T> &rhs )
 	{
 		if( this->m_size < rhs.m_size )
 		{
@@ -530,7 +530,7 @@ namespace sc
 	}
 
 	template <class T>
-	Vector<T> &Vector<T>::operator=( std::initializer_list<T> ilist )
+	vector<T> &vector<T>::operator=( std::initializer_list<T> ilist )
 	{
 		int temp_capacity;
 		if( ilist.size() > 2 )
@@ -563,7 +563,7 @@ namespace sc
 	}
 
 	template <class T>
-	bool Vector<T>::operator==( const Vector &rhs )
+	bool vector<T>::operator==( const vector &rhs )
 	{
 		if( rhs.m_size != this->m_size )
 		{
@@ -584,7 +584,7 @@ namespace sc
 	}
 
 	template <class T>
-	bool Vector<T>::operator!=( const Vector &rhs )
+	bool vector<T>::operator!=( const vector &rhs )
 	{
 		if( *this == rhs )
 		{
@@ -597,199 +597,199 @@ namespace sc
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::begin()
+	typename vector<T>::iterator vector<T>::begin()
 	{
-		return Vector<T>::iterator(this->m_first);
+		return vector<T>::iterator(this->m_first);
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::end()
+	typename vector<T>::iterator vector<T>::end()
 	{
-		return Vector<T>::iterator(this->m_last);
+		return vector<T>::iterator(this->m_last);
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::cbegin() const
+	typename vector<T>::const_iterator vector<T>::cbegin() const
 	{
-		return Vector<T>::const_iterator(this->m_first);
+		return vector<T>::const_iterator(this->m_first);
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::cend() const
+	typename vector<T>::const_iterator vector<T>::cend() const
 	{
-		return Vector<T>::const_iterator(this->m_last);
+		return vector<T>::const_iterator(this->m_last);
 	}
 
 	template <class T>
-	Vector<T>::iterator::iterator( T *ptr )
+	vector<T>::iterator::iterator( T *ptr )
 	{
 		this->m_ptr = ptr;
 	}
 
 	template <class U>
-	Vector<U>::iterator::iterator( const Vector<U>::iterator &itr )
+	vector<U>::iterator::iterator( const vector<U>::iterator &itr )
 	{
 		this->m_ptr = itr.m_ptr;
 	}
 
 	template <class U>
-	Vector<U>::iterator::~iterator() = default;
+	vector<U>::iterator::~iterator() = default;
 
 	template <class T>
-	typename Vector<T>::iterator &Vector<T>::iterator::operator=( const Vector::iterator &rhs )
+	typename vector<T>::iterator &vector<T>::iterator::operator=( const vector::iterator &rhs )
 	{
 		this->m_ptr = rhs.m_ptr;
 	}
 
 	template <class T>
-	bool Vector<T>::iterator::operator==( const Vector::iterator &rhs ) const
+	bool vector<T>::iterator::operator==( const vector::iterator &rhs ) const
 	{
 		return this->m_ptr == rhs.m_ptr;
 	}
 
 	template <class T>
-	bool Vector<T>::iterator::operator!=( const Vector::iterator &rhs ) const
+	bool vector<T>::iterator::operator!=( const vector::iterator &rhs ) const
 	{
 		return this->m_ptr != rhs.m_ptr;
 	}
 
 	template <class T>
-	T &Vector<T>::iterator::operator*( void ) const
+	T &vector<T>::iterator::operator*( void ) const
 	{
 		return *this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator++( void )
+	typename vector<T>::iterator vector<T>::iterator::operator++( void )
 	{
 		// ++it
 		return ++this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator-(int a )
+	typename vector<T>::iterator vector<T>::iterator::operator-(int a )
 	{
 		// --it
 		return this->m_ptr-a;
 	}
 
 	template <class T>
-	int Vector<T>::iterator::operator-(iterator rhs )
+	int vector<T>::iterator::operator-(iterator rhs )
 	{
 		return this->m_ptr-rhs.m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator+(int a )
+	typename vector<T>::iterator vector<T>::iterator::operator+(int a )
 	{
 		// ++it
 		return this->m_ptr+a;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator++( int )
+	typename vector<T>::iterator vector<T>::iterator::operator++( int )
 	{
 		// it++
 		return this->m_ptr++;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator--( void )
+	typename vector<T>::iterator vector<T>::iterator::operator--( void )
 	{
 		// --it
 		return --this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::iterator Vector<T>::iterator::operator--( int )
+	typename vector<T>::iterator vector<T>::iterator::operator--( int )
 	{
 		// it--
 		return this->m_ptr--;
 	}
 
 	template <class T>
-	Vector<T>::const_iterator::const_iterator( T *ptr )
+	vector<T>::const_iterator::const_iterator( T *ptr )
 	{
 		this->m_ptr = ptr;
 	}
 
 	template <class U>
-	Vector<U>::const_iterator::const_iterator( const Vector<U>::const_iterator &itr )
+	vector<U>::const_iterator::const_iterator( const vector<U>::const_iterator &itr )
 	{
 		this->m_ptr = itr.m_ptr;
-		std::cout << "Vector<U>::const_iterator::const_iterator( itr ) created.\n";
+		std::cout << "vector<U>::const_iterator::const_iterator( itr ) created.\n";
 	}
 
 	template <class U>
-	Vector<U>::const_iterator::~const_iterator() = default;
+	vector<U>::const_iterator::~const_iterator() = default;
 
 	template <class T>
-	typename Vector<T>::const_iterator &Vector<T>::const_iterator::operator=( const Vector::const_iterator &rhs )
+	typename vector<T>::const_iterator &vector<T>::const_iterator::operator=( const vector::const_iterator &rhs )
 	{
 		this->m_ptr = rhs.m_ptr;
 	}
 
 	template <class T>
-	bool Vector<T>::const_iterator::operator==( const Vector::const_iterator &rhs ) const
+	bool vector<T>::const_iterator::operator==( const vector::const_iterator &rhs ) const
 	{
 		return this->m_ptr == rhs.m_ptr;
 	}
 
 	template <class T>
-	bool Vector<T>::const_iterator::operator!=( const Vector::const_iterator &rhs ) const
+	bool vector<T>::const_iterator::operator!=( const vector::const_iterator &rhs ) const
 	{
 		return this->m_ptr != rhs.m_ptr;
 	}
 
 	template <class T>
-	const T &Vector<T>::const_iterator::operator*( void ) const
+	const T &vector<T>::const_iterator::operator*( void ) const
 	{
 		return *this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator++( void )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( void )
 	{
 		// ++it
 		return ++this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator-(int a )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator-(int a )
 	{
 		// ++it
 		return this->m_ptr-a;
 	}
 
 	template <class T>
-	int Vector<T>::const_iterator::operator-(const_iterator rhs )
+	int vector<T>::const_iterator::operator-(const_iterator rhs )
 	{
 		return this->m_ptr-rhs.m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator+(int a )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator+(int a )
 	{
 		// ++it
 		return this->m_ptr+a;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator++( int )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( int )
 	{
 		// it++
 		return this->m_ptr++;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator--( void )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( void )
 	{
 		// --it
 		return --this->m_ptr;
 	}
 
 	template <class T>
-	typename Vector<T>::const_iterator Vector<T>::const_iterator::operator--( int )
+	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( int )
 	{
 		// it--
 		return this->m_ptr--;

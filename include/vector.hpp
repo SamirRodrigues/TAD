@@ -2,7 +2,7 @@
 #define VECTOR_HPP_
 #define debug false
 #include <iostream>
-#include <cmath>
+#include <cmath> //std::pow
 #include <algorithm>
 #include <iterator> // std::distance
 #include <stdexcept>
@@ -13,7 +13,7 @@ using size_type = size_t;
 namespace sc
 {
 	template <class T>
-	class Vector
+	class vector
 	{
 		private:
 			T *m_first;					// an 'first' pointer
@@ -92,18 +92,18 @@ namespace sc
 			};
 
 			// Iterator methods 
-			typename Vector<T>::iterator begin();
-			typename Vector<T>::iterator end();
-			typename Vector<T>::const_iterator cbegin() const;
-			typename Vector<T>::const_iterator cend() const;		
+			typename vector<T>::iterator begin();
+			typename vector<T>::iterator end();
+			typename vector<T>::const_iterator cbegin() const;
+			typename vector<T>::const_iterator cend() const;		
 
 			// Special functions 
-			Vector( void );							// Default constructor
-			explicit Vector( size_type count );		// Allocate and set to a default
-			Vector( T *first, T *last );			// Copy a array into Vector Obj
-			Vector( const Vector &other );			// Makes a deep copy of &other
-			Vector( std::initializer_list<T> ilist ); // Create a Vector by iList
-			~Vector();								// Default destructor
+			vector( void );							// Default constructor
+			explicit vector( size_type count );		// Allocate and set to a default
+			vector( T *first, T *last );			// Copy a array into vector Obj
+			vector( const vector &other );			// Makes a deep copy of &other
+			vector( std::initializer_list<T> ilist ); // Create a vector by iList
+			~vector();								// Default destructor
 
 			// Capacity functions 
 			bool empty();		
@@ -139,10 +139,10 @@ namespace sc
 			
 
 			// Operator functions		
-			Vector &operator=( const Vector & ); // Copy content from another object		
-			Vector &operator=( std::initializer_list<T> ilist ); // Check syntax		
-			bool operator==( const Vector & ); // Checks if Vector1 == Vector2		
-			bool operator!=( const Vector & );   // Checks if Vector1 != Vector2		
+			vector &operator=( const vector & ); // Copy content from another object		
+			vector &operator=( std::initializer_list<T> ilist ); // Check syntax		
+			bool operator==( const vector & ); // Checks if Vector1 == Vector2		
+			bool operator!=( const vector & );   // Checks if Vector1 != Vector2		
 			T &operator[]( size_type );	 		 // Access [pos] element by doing object[pos]
 	};
 }
