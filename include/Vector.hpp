@@ -83,6 +83,39 @@ namespace sc
     };
 }
 
+
+
+//=== [I] SPECIAL MEMBERS
+template <typename T>
+sc::vector<T>::Vector( ){
+
+    m_storage = new T;
+
+}
+
+template <typename T>
+sc::vector<T>::~Vector(){
+
+    delete[] m_storage;
+
+}
+
+template <typename T>
+sc::vector<T>::Vector( other ){
+
+    m_storage = new T[other->capacity()];
+
+    for (size_t i = 0; i < other->size(); i++)
+    {
+        m_storage[i] = other[i];
+    }
+    
+}
+
+
+
+
+
 // [III] Capacity
 template <typename T>
 size_type sc::vector<T>::size(){
@@ -100,6 +133,9 @@ bool sc::vector<T>::empty(){
 }
 
 
+
+
+
 // [IV] Modifiers
 template <typename T>
 sc::vector<T>::clear( void ){
@@ -111,7 +147,7 @@ sc::vector<T>::clear( void ){
 }
 
 template <typename T>
-sc::vector<T>::push_front( const_reference /*value*/){
+sc::vector<T>::push_front( const_reference ){
     
     if(m_end > m_capacity)
     {
@@ -123,7 +159,7 @@ sc::vector<T>::push_front( const_reference /*value*/){
         m_storage[i] = m_storage[i-1];
     }
 
-    m_storage[0] = /*value*/;
+    m_storage[0] = const_reference;
 
     return 1;                          
 
@@ -177,6 +213,15 @@ sc::vector<T>::pop_front( void ){
 }
 
 template <typename T>
-iterator sc::vector<T>::insert( iterator, const_reference ){
+void sc::vector<T>::assign( size_type, const_reference ){
+    
+    delete[] m_storage;
 
+    m_storage = new T[size_type];
+
+    for (size_t i = 0; i < size_type; i++)
+    {
+        m_storage[i] = const_reference;
+    }
+    
 }
