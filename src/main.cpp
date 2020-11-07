@@ -11,11 +11,6 @@
 /* Client code functions {{{*/
 namespace client
 {
-	/*!
-	 * 	\brief 	Prints the desired sc::Vector object on the std::cout
-	 * 	\param	sc::Vector<T> &V : The Vector object that will be printed
-	 * 	\param 	char sep : desired separator char, ex: ' ' (whitespace)
-	 */
 	template <class T>
 		void print_it( sc::Vector<T> &V, char sep ){
 			for( auto it = V.begin(); it != V.end(); ++it ){
@@ -24,12 +19,6 @@ namespace client
 			std::cout << std::endl;
 		}
 
-	// Populate a given array with random values between [0, 1000)
-	/*!
-	 * 	\brief 	Populates a given sc::Vector object with random values between
-	 * 			0 and 1000
-	 * 	\param	sc::Vector<T> &V : sc::Vector object that will be populated
-	 */
 	template <class T>
 		void populate( sc::Vector<T> &V ){
 			for( auto it = V.begin(); it != V.end(); ++it ){
@@ -40,13 +29,8 @@ namespace client
 			}
 		}
 }
-/*}}}*/
-
-/* Styles functions {{{*/
 namespace h{
-	/*!
-	 *	\brief	Prints a separator string on std::cout
-	 */
+	
 	void sep( void ){
 		std::cout << "\e[2m";
 		for( int i = 0; i < 80; i++ )
@@ -55,20 +39,12 @@ namespace h{
 		std::cout << std::endl;
 	}
 
-	/*!
-	 * 	\brief 	Prints a defined phrase with H1 pre-defined styling
-	 * 	\param 	std::string phrase : Phrase to print with style
-	 */
 	void h1(std::string phrase){
 		std::cout << "\e[36;4;1m";
 		std::cout << "~ " << phrase;
 		std::cout << "\e[0m" << std::endl;
 	}
 	
-	/*!
-	 * 	\brief 	Prints a defined phrase with H2 pre-defined styling
-	 * 	\param 	std::string phrase : Phrase to print with style
-	 */
 	void h2(std::string phrase){
 		std::cout << "\e[1m";
 		std::cout << "\n> ";
@@ -76,7 +52,6 @@ namespace h{
 		std::cout << "\e[0m";
 	}
 }
-/*}}}*/
 
 int main( void ){
 
@@ -165,7 +140,6 @@ int main( void ){
 		}
 		h::sep();
 	}
-	/*}}}*/
 	
 	/* Capacity functions tests {{{*/
 	{
@@ -223,7 +197,6 @@ int main( void ){
 		}
 		h::sep();
 	}
-	/*}}}*/
 
 	/* Modifiers functions tests {{{*/
 	{
@@ -342,7 +315,6 @@ int main( void ){
 		}
 		h::sep();
 	}
-	/*}}}*/
 
 	/* Element access functions tests {{{*/
 	{
@@ -361,9 +333,8 @@ int main( void ){
 
 		h::sep();
 	}
-	/*}}}*/
 
-	/* Operators tests {{{*/
+	// Operators tests 
 	{
 		h::h1("Operators tests");
 
@@ -393,9 +364,8 @@ int main( void ){
 		}
 		h::sep();
 	}
-	/*}}}*/
 
-	/* Iterators tests {{{*/
+	// Iterators tests 
 	{
 		h::h1("Iterators tests");
 		
@@ -408,10 +378,12 @@ int main( void ){
 			for( auto &it : V ){
 				std::cout << it << ' ';
 			}
+
 			std::cout << std::endl;
 			for( auto it = V.begin(); it != V.end(); it++ ){
 				std::cout << *it << ' ';
 			}
+
 			std::cout << std::endl;
 			for( sc::Vector<int>::iterator it = V.begin(); it != V.end(); ++it ){
 				std::cout << *it << ' ';
@@ -428,10 +400,7 @@ int main( void ){
 
 		h::sep();
 	}
-	/*}}}*/
 
-	std::cout << "\nEnd of the driver code." << std::endl;
-	std::cout << "Authors: Felipe Ramos and Max William\n" << std::endl;
 	return 1;
 }
 

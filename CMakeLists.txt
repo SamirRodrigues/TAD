@@ -10,18 +10,17 @@ set ( CMAKE_CXX_FLAGS "-g" )
 #set (CMAKE_CXX_STANDARD 11)
 #--------------------------------
 
-### [1] Application target
+### [1] Test target
 # set the include path
-include_directories( include )
+include_directories( include
+                     lib )
 
-# define the sources for the project
-add_executable( sorting
-                src/main.cpp # This has the application main().
-                src/sortingAlgorithms.cpp 
-                src/genericFunctions.cpp
-                )
+# Add the test target
+add_executable( run_tests
+                lib/test_manager.cpp
+                test/run_tests.cpp )
 
 # define C++11 standard
-set_property(TARGET sorting PROPERTY CXX_STANDARD 11)
+set_property(TARGET run_tests PROPERTY CXX_STANDARD 11)
 
 # The end
