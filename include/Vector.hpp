@@ -126,20 +126,20 @@ namespace sc
             #pragma region  // [IV] Modifiers
             
             
-            void clear( void );
-            void push_front( const_reference );
-            void push_back( const_reference );
-            void pop_back( void );
-            void pop_front( void );
+            void clear( void );  //done
+            void push_front( const_reference );  //done
+            void push_back( const_reference );   //done
+            void pop_back( void );   //done
+            void pop_front( void );   //done
             iterator insert( iterator, const_reference );
 
             template < typename InputItr >
             iterator insert( iterator , InputItr, InputItr );
             iterator insert( iterator , const std::initializer_list< value_type >& );
-            void reserve( size_type );
+            void reserve( size_type );   //done
             void shrink_to_fit( void );
 
-            void assign( syze_type, const_reference );
+            void assign( syze_type, const_reference );   //done
             void assign( const std::initializer_list<T>& );
 
             template < typename InputItr >
@@ -180,7 +180,7 @@ namespace sc
             size_type m_end;                        //!< Current list size (or index past-last valid element).
             size_type m_capacity;                   //!< List’s storage capacity.
             //std::unique_ptr<T[]> m_storage;       //!< Data storage area for the dynamic array.
-            value_type * m_storage;                           //!< Data storage area for the dynamic array.
+            value_type * m_storage;                 //!< Data storage area for the dynamic array.
     };
 }
 
@@ -189,6 +189,7 @@ namespace sc
 
 
 #pragma region  //=== [I] SPECIAL MEMBERS
+
 template <typename T>
 sc::vector<T>::Vector( size_type count ){
 
@@ -518,7 +519,7 @@ sc::vector<T>::pop_front( void ){
 template <typename T>
 void sc::vector<T>::assign( size_type size, const_reference value){
     
-    
+
     clear();
     reserve(size);
 
@@ -567,6 +568,7 @@ void vector<T>::reserve( size_type new_cap )
 
 
 #pragma region  //iterator
+
 
 template <class T>
 vector<T>::iterator::iterator( T *ptr )
@@ -654,8 +656,9 @@ typename vector<T>::iterator vector<T>::iterator::operator--( int )
     // it--
     return this->m_ptr--;
 }
-#pragma endregion  //iterator
 
+
+#pragma endregion  //iterator
 
 
 #pragma region  //const_iterator
