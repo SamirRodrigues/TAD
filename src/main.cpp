@@ -8,10 +8,13 @@ namespace client
 {
 	template <class T>
 	void print_it( sc::vector<T> &V, char sep ){
-		for( auto it = V.begin(); it != V.end(); ++it ){
+		for( auto it = V.begin(); it != V.end(); it++ ){
 			std::cout << *it << sep;
 		}
-		std::cout << std::endl;
+		
+		std::cout << std::endl; //segmentation fault aqui
+		std::cout << "aqui";
+		
 	}
 
 	// Populate a given array with random values between [0, 300)
@@ -288,10 +291,10 @@ int main( void ){
 			client::populate(aVec);
 			std::cout << "aVec elements: ";
 			client::print_it(aVec, ' ');
-
-			 std::cout << "iVec.assign(aVec.begin(), aVec.end()) = ";
-			 iVec.assign(aVec.begin(), aVec.end());
-			 client::print_it(iVec, ' ');
+			
+			std::cout << "iVec.assign(aVec.begin(), aVec.end()) = ";
+			iVec.assign(aVec.begin(), aVec.end());
+			client::print_it(iVec, ' ');
 
 			std::cout << "iVec.assign(5, 10) = ";
 			iVec.assign(5, 10);

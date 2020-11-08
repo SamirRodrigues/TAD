@@ -12,6 +12,8 @@ namespace tam
 
 namespace sc
 {	
+	#pragma region ////=== [I] SPECIAL MEMBERS
+
 	template <class T>
 	vector<T>::vector( size_type count )
 	{
@@ -33,7 +35,6 @@ namespace sc
 			if(debug) m_storage[i] = i;			// debug inicializer
 			else m_storage[i] = 0;				// normal inicializer
 		}
-
 		this->m_first = m_storage;
 		this->m_last = m_storage + count;
 		this->m_end = count;
@@ -163,24 +164,60 @@ namespace sc
 		}
 	}
 	
+	#pragma endregion
+
+	#pragma region  //=== [II] ITERATORS
+
+	template <class T>
+	typename vector<T>::iterator vector<T>::begin()
+	{
+		return vector<T>::iterator(m_storage);
+	}
+
+	template <class T>
+	typename vector<T>::iterator vector<T>::end()
+	{
+		return vector<T>::iterator(m_storage+m_end-1);
+	}
+
+	template <class T>
+	typename vector<T>::const_iterator vector<T>::cbegin() const
+	{
+		return vector<T>::const_iterator(m_storage);
+	}
+
+	template <class T>
+	typename vector<T>::const_iterator vector<T>::cend() const
+	{
+		return vector<T>::const_iterator(m_storage+m_end-1);
+	}
+
+	#pragma endregion  //=== [II] ITERATORS
+
+	#pragma region // [III] Capacity
+
 	template <class T>
 	bool vector<T>::empty()
 	{
-		return (m_end == 0 ? true : false);
+		return m_end == 0;
 	}
 	
 	template <class T>
 	size_type vector<T>::size() const
 	{
-		return this->m_end;
+		return m_end;
 	}
 
 	
 	template <class T>
 	size_type vector<T>::capacity() const
 	{
-		return this->m_capacity;
+		return m_capacity;
 	}
+
+	#pragma endregion  // [III] Capacity
+
+	#pragma region  // [IV] Modifiers 
 
 	template <class T>
 	void vector<T>::reserve(size_type new_cap)
@@ -192,12 +229,18 @@ namespace sc
 				m_capacity *= 2;	
 			}
 			
-			T *temp_elements = new T[m_capacity];
-			if(m_first != m_last) std::copy( m_storage, m_last, temp_elements );
-			delete [] m_storage;
-			m_storage = temp_elements;
-			m_first = m_storage;
-			m_last = m_storage+m_end;
+			T * temp_storage = new T[m_capacity];
+
+			if(m_storage != m_storage+m_end-1)
+            {
+
+                std::copy( m_storage, m_storage+m_end-1, temp_storage );
+			
+            }
+            delete [] m_storage;
+			
+            m_storage = temp_storage;
+
 		}
 	}
 
@@ -206,58 +249,42 @@ namespace sc
 	{		
 		if( m_end < m_capacity )
 		{
-			*(m_last++) = value;
+			m_storage[m_end] = value;
 			m_end += 1;
 		} 
 		else 
 		{			
-			this->reserve( m_capacity * 2 );	
+			reserve( m_capacity * 2 );	
 			m_end += 1;
-			*(m_last++) = value;
+			m_storage[m_end] = value;
+			m_end += 1;
 		}
 	}
 
 	template <typename T>
 	void vector<T>::push_front(const T & value)
 	{	
-		if(m_end <= 2)
+		if( m_end < m_capacity )
 		{
-			this->reserve(2);
+			std::copy(m_storage, m_storage + m_end - 1, m_storage+1);
+			m_storage[0] = value;
 			m_end += 1;
-
-			if(m_end >= 1)
-			{
-				 std::copy(m_first,m_last,m_first+1);
-			}
-
-			m_last++;
-			*m_first = value;
-		}
-		
-		else if( m_end < m_capacity )
-		{
-			std::copy(m_first,m_last,m_first+1);
-			*m_first = value;
-			m_end += 1;
-			m_last++;
 		} 
 		else 
 		{			
-			this->reserve( m_capacity * 2 );	
+			reserve( m_capacity * 2 );	
+			std::copy(m_storage, m_storage + m_end - 1, m_storage+1);
+			m_storage[0] = value;
 			m_end += 1;
-			std::copy(m_first,m_last,m_first+1);
-			*m_first = value;
-			m_last++;
 		}
 	}
 	
 	template <typename T>
 	void vector<T>::pop_front()
 	{
-		if(m_end != 0){
+		if(!empty()){
 			std::copy(m_first+1,m_last,m_first);
 			m_end--;
-			m_last--;
 		}
 		else
 		{
@@ -268,9 +295,8 @@ namespace sc
 	template <typename T>
 	void vector<T>::pop_back()
 	{
-		if(m_end != 0){
+		if(!empty()){
 			m_end--;
-			m_last--;
 		}
 		else
 		{
@@ -281,29 +307,25 @@ namespace sc
 	template <typename T>
 	typename vector<T>::iterator vector<T>::insert(iterator pos, const T &value)
 	{
-		int distance = pos - m_first;
+		int distance = pos - m_storage;
 
-		bool reserved = false;	
 		if(++m_end >= m_capacity)
 		{
-			this->reserve(m_capacity*2);
-			reserved = true;
+			reserve(m_capacity*2);
 		}
 		
 		if(debug) tam::bug ( "Distance: "  ); std::cout << distance << std::endl;
 
 		if(distance == m_end)
 		{
-			*m_last = value;
-			if(!reserved) m_last++;
+			m_storage[m_end++] = value;
 			return m_storage+m_end;
 		}
 		else
 		{
-			T temp;
 			std::copy(m_storage+distance,m_storage+m_end,m_storage+distance+1);
-			*(m_storage+distance) = value;
-			if(!reserved) m_last++;
+			m_storage[distance] = value;
+			m_end++;
 		}
 
 		return m_storage+distance;
@@ -313,19 +335,19 @@ namespace sc
 	typename vector<T>::iterator vector<T>::insert(iterator pos,iterator first, iterator last )
 	{
 		int distance = last-first;
-		int first_index = pos-m_first;
+		int first_index = pos-m_storage;
 
-		T temp[distance];	
+		T * temp_storage = new T[distance];	
 		int index = 0;
-		for (auto i(first); i != last; ++i,++index) 
+		for (auto i = first; i != last; ++i,++index) 
 		{
-			temp[index] = *i;
+			temp_storage[index] = *i;
 		}
 	
 		if(debug)
 		{
 			tam::bug ( "Before : ");
-			std::copy(temp,temp+distance, std::ostream_iterator<int>(std::cout ," "));
+			std::copy(temp_storage,temp_storage+distance, std::ostream_iterator<int>(std::cout ," "));
 			tam::bug ( "first_index : " ); std::cout << first_index << std::endl;
 		}
 
@@ -342,22 +364,24 @@ namespace sc
 			std::cout << std::endl;
 		}
 
-		std::copy(temp,temp+distance,m_storage+first_index);
-		
-		m_last += distance;
+		std::copy(temp_storage,temp_storage+distance,m_storage+first_index);
+	
+		delete[] temp_storage;
+
 		return m_storage+first_index; 
 	}
 
 	template <typename T>
 	typename vector<T>::iterator vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
 	{
-		int first_index = pos-m_first;
+		int first_index = pos-m_storage;
+
 		if(debug)
 		{
 			tam::bug ( "Before : ");
 			tam::bug ( "Cap : "); std::cout << capacity() << std::endl;
 			tam::bug ( "size : " ); std::cout << size() << std::endl;
-			std::copy(m_first,m_last, std::ostream_iterator<int>(std::cout ," "));
+			std::copy(m_storage,m_storage+m_end, std::ostream_iterator<int>(std::cout ," "));
 			std::cout << std::endl;
 		}
 		
@@ -370,7 +394,6 @@ namespace sc
 		std::copy(ilist.begin(), ilist.end(), m_storage+first_index);
 	
 		m_end += ilist.size();
-		m_last += ilist.size();
 
 		if(debug) 
 		{
@@ -387,23 +410,23 @@ namespace sc
 	template <typename T>
 	void vector<T>::clear(void)
 	{
+		delete[] m_storage;
+
 		m_end = 0;
-		m_first = m_storage;
-		m_last = m_storage;
+
+		m_storage = new T[m_capacity];
 	}
 
 	template <typename T>
-	void vector<T>::assign(size_type count,  const T & value)
+	void vector<T>::assign(size_type size,  const T & value)
 	{
 		clear();
-		reserve(count);
+		reserve(size);
 
-		for (int i = 0; i < count; ++i) {
+		for (size_t i = 0; i < size; ++i) {
 			m_storage[i] = value;	
 		}
 
-		m_last += count;
-		m_end += count;
 	}
 
 	template <typename T>
@@ -412,10 +435,10 @@ namespace sc
 		int distance = last-first;
 		clear();
 		reserve(distance);
-
-		for (auto i(first);  i != last;++i ) 
+		int index = 0;
+		for (auto i(first);  i != last; ++i,index) 
 		{
-			*m_last++ = *i;	
+			m_storage[index] = *i;	
 			m_end++;
 		}
 	}
@@ -434,7 +457,6 @@ namespace sc
 		}
 
 		clear();	
-		m_last+= ilist.size();
 		m_end+= ilist.size();
 		std::copy(ilist.begin(), ilist.end(), m_storage);	
 	}
@@ -443,21 +465,19 @@ namespace sc
 	void vector<T>::shrink_to_fit(void)
 	{
 		m_capacity = pow( 2, int(log2(m_end))+1 );
-		T *temp_elements = new T[m_capacity];
-		std::copy(m_storage, m_storage+m_end, temp_elements);
+		T *temp_storage = new T[m_end];
+		std::copy(m_storage, m_storage+m_end, temp_storage);
 		delete [] m_storage;
-		m_storage = temp_elements;
-		m_first = m_storage;
-		m_last = m_storage+m_end;
+		m_storage = temp_storage;
+
 	}
 
 	template <typename T>
 	typename vector<T>::iterator vector<T>::erase(iterator pos)
 	{
-		int index = pos-m_first;
-		if(pos == end()-1 or pos == end())
+		int index = pos-m_storage;
+		if(pos == end()-1 || pos == end())
 		{
-			m_last--;
 			m_end--;
 			return end();
 		}
@@ -466,15 +486,13 @@ namespace sc
 		{
 			std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
 			m_end--;
-			m_last--;
 			tam::bug ( "debug "); std::cout << index-1 << std::endl;
 			return m_storage+index;
 		}		
-		else
+		else //else eh necessario?
 		{
 			std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
 			m_end--;
-			m_last--;
 			return m_storage;
 		}
 	} 
@@ -605,30 +623,7 @@ namespace sc
 			return true;
 		}
 	}
-
-	template <class T>
-	typename vector<T>::iterator vector<T>::begin()
-	{
-		return vector<T>::iterator(this->m_first);
-	}
-
-	template <class T>
-	typename vector<T>::iterator vector<T>::end()
-	{
-		return vector<T>::iterator(this->m_last);
-	}
-
-	template <class T>
-	typename vector<T>::const_iterator vector<T>::cbegin() const
-	{
-		return vector<T>::const_iterator(this->m_first);
-	}
-
-	template <class T>
-	typename vector<T>::const_iterator vector<T>::cend() const
-	{
-		return vector<T>::const_iterator(this->m_last);
-	}
+	
 
 	template <class T>
 	vector<T>::iterator::iterator( T *ptr )
