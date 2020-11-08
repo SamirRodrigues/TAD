@@ -12,21 +12,18 @@ using size_type = size_t;
 
 namespace sc
 {
-    template < typename T >
-    class vector 
-    {
-        public:
-            using size_type = unsigned long;                //!< The size type.
-            using value_type = T;                           //!< The value type.
-            using pointer = value_type*;                    //!< Pointer to a value stored in the container.
-            using reference = value_type&;                  //!< Reference to a value stored in the container.
-            using const_reference = const value_type&;      //!< Const reference to a value stored in the container.
-            using iterator = MyIterator< T >;               // See Code 3
-            using const_iterator = MyIterator< const T >;   // See Code 3
+	template <class T>
+	class vector
+	{
+		private:
+			T *m_first;					// an 'first' pointer
+			T *m_last;					// an 'last' pointer
+			T *elements;				// where the array will be stored
+			size_type m_size = 0;		// default empty array 
+			size_type m_capacity;		// maximum capacity of the array
 
-            //iterator class
-            
-            class iterator
+		public:
+			class iterator
 			{
 				public:
 
@@ -58,9 +55,8 @@ namespace sc
 
 				private:
 					T *current;
-			};
-            	
-            //const_iterator class
+			};		
+		
 			class const_iterator
 			{
 				public:
@@ -93,95 +89,65 @@ namespace sc
 					
 				private:
 					T *current;
-            };
+			};
 
-            #pragma region  //=== [I] SPECIAL MEMBERS            
-            
-            explicit vector ( size_type = 0 );
-            virtual ~vector ( void );
-            vector( const vector & );
-            vector( std::initializer_list<T> );
-            vector( vector && );
+			// Iterator methods 
+			typename vector<T>::iterator begin();
+			typename vector<T>::iterator end();
+			typename vector<T>::const_iterator cbegin() const;
+			typename vector<T>::const_iterator cend() const;		
 
-            template < typename InputItr >
-            vector( InputItr, InputItr );
-            vector& operator=( const vector& );
-            vector& operator=( vector && );
+			// Special functions 
+			vector( void );							// Default constructor
+			explicit vector( size_type count );		// Allocate and set to a default
+			vector( T *first, T *last );			// Copy a array into vector Obj
+			vector( const vector &other );			// Makes a deep copy of &other
+			vector( std::initializer_list<T> ilist ); // Create a vector by iList
+			~vector();								// Default destructor
 
+			// Capacity functions 
+			bool empty();		
+			size_type size() const; 		// Returns amount of the vector's initialized elements		
+			size_type capacity() const; 	// Returns amount of memory allocated for the vector		
+			void reserve( size_type );  	// If new_cap > capacity allocates (new_cap - capacity) bytes
 
-            #pragma endregion            
-            #pragma region  //=== [II] ITERATORS            
-            
-            iterator begin( void );
-            iterator end( void );
-            const_iterator cbegin( void ) const;
-            const_iterator cend( void ) const;
+			// Modifiers functions 
+			/*! Deletes all elements from the vector */
+			void clear(); 					// Clears array from all elements
+			void push_front( const T & );  	// insert an element on first position
+			void push_back( const T & );	// insert an element on last position
+			void pop_front(); 				// deletes element on first position
+			void pop_back(); 				// deletes element on last position
+			
+			iterator insert(iterator pos, const T & value );
+			iterator insert(iterator pos,iterator first, iterator last );
+			iterator insert(iterator pos,std::initializer_list<T> ilist);
+			
+			void shrink_to_fit();   //Reduces Capacity according to the vector actual size 
+			
+			void assign(size_type count,  const T & value);
+			void assign(iterator first, iterator last);
+			void assign(std::initializer_list<T> ilist);
+			iterator erase(iterator pos); 					// Deletes element in position pos
+			iterator erase(iterator first,iterator last);  	// Deletes elements in [first,last) 		
+			
 
+			// Element access functions
+			const T &front() const;		// Acess front member (first member)
+			const T &back() const;		// Acess back member (last member)
+			T &at( size_type pos );		// TODO Acess [pos] element at the datatype
+			
 
-            #pragma endregion            
-            #pragma region  // [III] Capacity            
-            
-            size_type size( void ) const;
-            size_type capacity( void ) const;
-            bool empty( void ) const;
-
-
-            #pragma endregion            
-            #pragma region  // [IV] Modifiers            
-            
-            void clear( void );  //done
-            void push_front( const_reference );  //done
-            void push_back( const_reference );   //done
-            void pop_back( void );   //done
-            void pop_front( void );   //done
-            iterator insert( iterator, const_reference );
-
-            template < typename InputItr >
-            iterator insert( iterator , InputItr, InputItr );
-            iterator insert( iterator , const std::initializer_list< value_type >& );
-            void reserve( size_type );   //done
-            void shrink_to_fit( void );
-
-            void assign( syze_type, const_reference );   //done
-            void assign( const std::initializer_list<T>& );
-
-            template < typename InputItr >
-            void assign( InputItr, InputItr );
-
-            iterator erase( iterator, iterator );
-            iterator erase( iterator );
-
-
-            #pragma endregion            
-            #pragma region  //[V] Element access            
-            
-            const_reference back( void ) const;
-            reference back( void );
-            const_reference front( void ) const;
-            reference front( void );
-            const_reference operator[]( size_type ) const;
-            const_reference at( size_type ) const;
-            reference at( size_type );
-            pointer data( void );
-            const_reference data( void ) const;
-
-
-            #pragma endregion            
-            #pragma region  // [VI] Friend functions.            
-            
-            friend std::ostream& operator <<( std::ostream&, const vector<T>& );
-            friend void swap( vector<T>&, vector<T>& );            
-
-            #pragma endregion
-
-        private:
-            size_type end;                        //!< Current list size (or index past-last valid element).
-            size_type capacity;                   //!< List’s storage capacity.
-            //std::unique_ptr<T[]> storage;       //!< Data storage area for the dynamic array.
-            value_type *storage;                 //!< Data storage area for the dynamic array.
-    };
+			// Operator functions		
+			vector &operator=( const vector & ); // Copy content from another object		
+			vector &operator=( std::initializer_list<T> ilist ); // Check syntax		
+			bool operator==( const vector & ); // Checks if Vector1 == Vector2		
+			bool operator!=( const vector & );   // Checks if Vector1 != Vector2		
+			T &operator[]( size_type );	 		 // Access [pos] element by doing object[pos]
+	};
 }
 
+// Source code 
 #include "vector.inl"
 
 #endif

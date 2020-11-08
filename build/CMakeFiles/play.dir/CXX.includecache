@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/vector.hpp
+iostream
+-
+cmath
+-
+algorithm
+-
+iterator
+-
+stdexcept
+-
+vector.inl
+../include/vector.inl
+
+../include/vector.inl
+vector.hpp
+../include/vector.hpp
+
+/mnt/c/Users/email/Documents/GitHub/TAD/src/main.cpp
+iostream
+-
+random
+-
+chrono
+-
+vector.hpp
+/mnt/c/Users/email/Documents/GitHub/TAD/src/vector.hpp
+

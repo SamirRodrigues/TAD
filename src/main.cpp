@@ -1,58 +1,60 @@
 #include <iostream>
-#include <string>
+#include <random>
+#include <chrono>
+#include "vector.hpp"
 
-#include "../include/vector.hpp"
-
-int main ( void )
+/* Client code functions {{{*/
+namespace client
 {
 	template <class T>
-		void print_it( sc::vector<T> &V, char sep ){
-			for( auto it = V.begin(); it != V.end(); ++it ){
-				std::cout << *it << sep;
-			}
-			std::cout << std::endl;
+	void print_it( sc::vector<T> &V, char sep ){
+		for( auto it = V.begin(); it != V.end(); ++it ){
+			std::cout << *it << sep;
 		}
+		std::cout << std::endl;
+	}
 
+	// Populate a given array with random values between [0, 300)
 	template <class T>
-		void populate( sc::vector<T> &V ){
-			for( auto it = V.begin(); it != V.end(); ++it ){
-				auto seed = 
-					std::chrono::system_clock::now().time_since_epoch().count();
-				std::mt19937 rd (seed);
-				*it = rd() % 1000;
-			}
+	void populate( sc::vector<T> &V ){
+		for( auto it = V.begin(); it != V.end(); ++it ){
+			auto seed = 
+				std::chrono::system_clock::now().time_since_epoch().count();
+			std::mt19937 rd (seed);
+			*it = rd() % 300;
 		}
+	}
 }
 
-// Text Appearance Modifiers
+// Text Apparence Modifiers
 namespace tam{
 	
 	void sep( void ){
 		std::cout << "\e[2m";
 		for( int i = 0; i < 80; i++ )
-			std::cout << "-";
+			std::cout << "=";
 		std::cout << "\e[0m";
 		std::cout << std::endl;
 	}
 
+	
 	void title(std::string phrase){
 		std::cout << "\e[36;4;1m";
-		std::cout << ">> " << phrase;
-		std::cout << " <<\e[0m" << std::endl;
+		std::cout << "~ " << phrase;
+		std::cout << "\e[0m" << std::endl;
 	}
 	
 	void bold(std::string phrase){
 		std::cout << "\e[1m";
 		std::cout << "\n> ";
-		std::cout << phrase << " <"<< std::endl;
+		std::cout << phrase << std::endl;
 		std::cout << "\e[0m";
 	}
 }
 
-    int a =25;
-    float b=50.5;
+int main( void ){
 
-	/* Special members tests {{{*/
+	// Special members tests 
 	{
 		tam::title("Special members tests");
 
@@ -138,7 +140,8 @@ namespace tam{
 		tam::sep();
 	}
 	
-	/* Capacity functions tests {{{*/
+	
+	// Capacity functions tests
 	{
 		tam::title("Capacity functions tests");
 		{
@@ -194,8 +197,9 @@ namespace tam{
 		}
 		tam::sep();
 	}
+	
 
-	/* Modifiers functions tests {{{*/
+	// Modifiers functions tests
 	{
 		tam::title("Modifiers functions tests");
 
@@ -313,7 +317,7 @@ namespace tam{
 		tam::sep();
 	}
 
-	/* Element access functions tests {{{*/
+	// Element access functions tests
 	{
 		tam::title("Element access functions tests");
 		
@@ -362,10 +366,9 @@ namespace tam{
 		tam::sep();
 	}
 
-	// Iterators tests 
+	// Iterators tests
 	{
-		tam::title("Iterators tests");
-		
+		tam::title("Iterators tests");		
 		{
 			tam::bold("Begin & End methods");
 			sc::vector<int> V(10);
@@ -375,12 +378,10 @@ namespace tam{
 			for( auto &it : V ){
 				std::cout << it << ' ';
 			}
-
 			std::cout << std::endl;
 			for( auto it = V.begin(); it != V.end(); it++ ){
 				std::cout << *it << ' ';
 			}
-
 			std::cout << std::endl;
 			for( sc::vector<int>::iterator it = V.begin(); it != V.end(); ++it ){
 				std::cout << *it << ' ';
@@ -400,3 +401,4 @@ namespace tam{
 
 	return 1;
 }
+
