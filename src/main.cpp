@@ -1,15 +1,9 @@
 #include <iostream>
-#include <random>
-#include <chrono>
-#include "vector.hpp"
+#include <string>
 
-/*!
- * 	\file	main.cpp
- * 	\author Felipe Ramos & Max William
- */
+#include "../include/TADVector.hpp"
 
-/* Client code functions {{{*/
-namespace client
+int main ( void )
 {
 	template <class T>
 		void print_it( sc::vector<T> &V, char sep ){
@@ -55,7 +49,8 @@ namespace tam{
 	}
 }
 
-int main( void ){
+    int a =25;
+    float b=50.5;
 
 	/* Special members tests {{{*/
 	{
@@ -405,4 +400,3 @@ int main( void ){
 
 	return 1;
 }
-
