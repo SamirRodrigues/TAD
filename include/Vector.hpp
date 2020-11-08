@@ -18,8 +18,8 @@ namespace sc
 		private:
 			T *m_first;					// an 'first' pointer
 			T *m_last;					// an 'last' pointer
-			T *elements;				// where the array will be stored
-			size_type m_size = 0;		// default empty array 
+			T *m_storage;				// where the array will be stored
+			size_type m_end = 0;		// default empty array 
 			size_type m_capacity;		// maximum capacity of the array
 
 		public:
@@ -107,13 +107,13 @@ namespace sc
 
 			// Capacity functions 
 			bool empty();		
-			size_type size() const; 		// Returns amount of the vector's initialized elements		
+			size_type size() const; 		// Returns amount of the vector's initialized m_storage		
 			size_type capacity() const; 	// Returns amount of memory allocated for the vector		
 			void reserve( size_type );  	// If new_cap > capacity allocates (new_cap - capacity) bytes
 
 			// Modifiers functions 
-			/*! Deletes all elements from the vector */
-			void clear(); 					// Clears array from all elements
+			/*! Deletes all m_storage from the vector */
+			void clear(); 					// Clears array from all m_storage
 			void push_front( const T & );  	// insert an element on first position
 			void push_back( const T & );	// insert an element on last position
 			void pop_front(); 				// deletes element on first position
@@ -129,7 +129,7 @@ namespace sc
 			void assign(iterator first, iterator last);
 			void assign(std::initializer_list<T> ilist);
 			iterator erase(iterator pos); 					// Deletes element in position pos
-			iterator erase(iterator first,iterator last);  	// Deletes elements in [first,last) 		
+			iterator erase(iterator first,iterator last);  	// Deletes m_storage in [first,last) 		
 			
 
 			// Element access functions

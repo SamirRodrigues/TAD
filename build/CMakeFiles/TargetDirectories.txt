@@ -1,3 +1,0 @@
-/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/play.dir
-/mnt/c/Users/email/Documents/GitHub/TAD/build/CMakeFiles/edit_cache.dir
