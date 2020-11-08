@@ -1,5 +1,15 @@
 #include "vector.hpp"
 
+namespace tam
+{	
+	void bug(std::string phrase){
+		std::cout << "\e[31;4;1m";
+		std::cout << "~ " << phrase;
+		std::cout << "\e[0m" << std::endl;
+	}
+	
+}
+
 namespace sc
 {	
 	template <class T>
@@ -28,7 +38,7 @@ namespace sc
 		this->m_last = m_storage + count;
 		this->m_end = count;
 
-		if(debug) std::cout << "> vector allocated with sucess!" << std::endl;
+		if(debug) tam::bug( "> vector allocated with sucess!" );
 	}
 
 	template <class T>
@@ -42,7 +52,7 @@ namespace sc
 		this->m_end = 0; 
 		this->m_capacity = temp_capacity;
 
-		if(debug) std::cout << "> vector allocated with sucess!" << std::endl;
+		if(debug) tam::bug( "> vector allocated with sucess!" );
 	}
 
 	template <class T>
@@ -149,7 +159,7 @@ namespace sc
 		if(m_storage != NULL)
 		{
 			delete[] m_storage;
-			if(debug) std::cout << "> vector deleted with sucess!" << std::endl;
+			if(debug) tam::bug ( "> vector deleted with sucess!" );
 		}
 	}
 	
@@ -280,7 +290,7 @@ namespace sc
 			reserved = true;
 		}
 		
-		if(debug) std::cout << "Distance: " << distance << std::endl;
+		if(debug) tam::bug ( "Distance: "  ); std::cout << distance << std::endl;
 
 		if(distance == m_end)
 		{
@@ -314,9 +324,9 @@ namespace sc
 	
 		if(debug)
 		{
-			std::cout << "Before : ";
+			tam::bug ( "Before : ");
 			std::copy(temp,temp+distance, std::ostream_iterator<int>(std::cout ," "));
-			std::cout << "first_index : " << first_index << std::endl;
+			tam::bug ( "first_index : " ); std::cout << first_index << std::endl;
 		}
 
 		reserve(m_end+distance);
@@ -327,7 +337,7 @@ namespace sc
 		
 		if(debug) 
 		{
-			std::cout << "After : ";
+			tam::bug ( "After : ");
 			std::copy(m_storage,m_storage+m_end,	std::ostream_iterator<int>( std::cout ," " ));
 			std::cout << std::endl;
 		}
@@ -342,11 +352,11 @@ namespace sc
 	typename vector<T>::iterator vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
 	{
 		int first_index = pos-m_first;
-		if(1)
+		if(debug)
 		{
-			std::cout << "Before : ";
-			std::cout << "Cap : " << capacity() << std::endl;
-			std::cout << "size : " << size() << std::endl;
+			tam::bug ( "Before : ");
+			tam::bug ( "Cap : "); std::cout << capacity() << std::endl;
+			tam::bug ( "size : " ); std::cout << size() << std::endl;
 			std::copy(m_first,m_last, std::ostream_iterator<int>(std::cout ," "));
 			std::cout << std::endl;
 		}
@@ -362,13 +372,13 @@ namespace sc
 		m_end += ilist.size();
 		m_last += ilist.size();
 
-		if(1) 
+		if(debug) 
 		{
-			std::cout << "After : ";
-			std::cout << "Cap : " << capacity() << std::endl;
-			std::cout << "size : " << size() << std::endl;
+			tam::bug ( "After : ");
+			tam::bug ( "Cap : "); std::cout << capacity() << std::endl;
+			tam::bug ( "size : "); std::cout << size() << std::endl;
 			std::copy(m_storage, m_storage+m_end, std::ostream_iterator<int>(std::cout ," "));
-			std::cout << std::endl;
+			std::cout<< std::endl;
 		}
 
 		return m_storage+first_index; 
@@ -457,7 +467,7 @@ namespace sc
 			std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
 			m_end--;
 			m_last--;
-			std::cout << "debug " << index-1 << std::endl;
+			tam::bug ( "debug "); std::cout << index-1 << std::endl;
 			return m_storage+index;
 		}		
 		else
@@ -559,7 +569,7 @@ namespace sc
 		this->m_end = ilist.size();
 		this->m_capacity = temp_capacity;
 
-		if(debug) std::cout << ">> Saiu da função!" << std::endl;
+		if(debug) tam::bug (">> Saiu da função!"); std::cout << std::endl;
 	}
 
 	template <class T>
