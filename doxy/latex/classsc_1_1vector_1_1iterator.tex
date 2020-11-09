@@ -1,0 +1,352 @@
+\doxysection{sc\+::vector$<$ T $>$\+::iterator Class Reference}
+\label{classsc_1_1vector_1_1iterator}\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+
+
+Public\+:  
+
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classsc_1_1vector_1_1iterator_a7089358e9f654206713ecd3951ac3545}} 
+typedef std\+::ptrdiff\+\_\+t {\bfseries difference\+\_\+type}
+\item 
+\mbox{\label{classsc_1_1vector_1_1iterator_ac49f578e5b98fd9e58b3d7e13b5d5b53}} 
+typedef std\+::bidirectional\+\_\+iterator\+\_\+tag {\bfseries iterator\+\_\+category}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ iterator} (T $\ast$ptr=nullptr)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxyref{vector$<$\+T$>$\+::iterator\+::iterator}{p.}{classsc_1_1vector_1_1iterator_a1458ba545309c1a05c126619a91b341e} object. \end{DoxyCompactList}\item 
+\mbox{\label{classsc_1_1vector_1_1iterator_af4763ce5a0c20c9e2a0da495b33a3da0}} 
+{\bfseries iterator} (const \textbf{ iterator} \&)
+\item 
+\textbf{ $\sim$iterator} (void)
+\begin{DoxyCompactList}\small\item\em Destroy the \doxyref{vector$<$\+T$>$\+::iterator\+::iterator}{p.}{classsc_1_1vector_1_1iterator_a1458ba545309c1a05c126619a91b341e} object. \end{DoxyCompactList}\item 
+\textbf{ iterator} \& \textbf{ operator=} (const \textbf{ iterator} \&)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator=()}{p.}{classsc_1_1vector_1_1iterator_a48d6bddda1a592ea840e2af9b11a774c} \end{DoxyCompactList}\item 
+T \& \textbf{ operator$\ast$} (void) const
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator$\ast$()}{p.}{classsc_1_1vector_1_1iterator_a0f9a30267b932d8d036af3adb549978a} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator++} (void)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator++()}{p.}{classsc_1_1vector_1_1iterator_a9fb861473bb35bdb5aa22c2b747a314e} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator++} (int)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator++()}{p.}{classsc_1_1vector_1_1iterator_a9fb861473bb35bdb5aa22c2b747a314e} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator-\/-\/} (void)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator-\/-\/()}{p.}{classsc_1_1vector_1_1iterator_a6b8c7a2cba0c25857d9ad3ef36eea6ca} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator-\/-\/} (int)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator-\/-\/()}{p.}{classsc_1_1vector_1_1iterator_a6b8c7a2cba0c25857d9ad3ef36eea6ca} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator-\/} (int a)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator-\/()}{p.}{classsc_1_1vector_1_1iterator_ab23097a7ea7afad292ccabac74deb6fd} \end{DoxyCompactList}\item 
+\textbf{ iterator} \textbf{ operator+} (int a)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator+()}{p.}{classsc_1_1vector_1_1iterator_a76f3edd4b565b6468535f0f6044a6b9e} \end{DoxyCompactList}\item 
+bool \textbf{ operator==} (const \textbf{ iterator} \&) const
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator==()}{p.}{classsc_1_1vector_1_1iterator_ab07bbaaf4a40930a267550652de5e38f} \end{DoxyCompactList}\item 
+bool \textbf{ operator!=} (const \textbf{ iterator} \&) const
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator!=()}{p.}{classsc_1_1vector_1_1iterator_afa31948e87f2dc149f75dc881426d1e4} \end{DoxyCompactList}\item 
+int \textbf{ operator-\/} (\textbf{ iterator} rhs)
+\begin{DoxyCompactList}\small\item\em iterator \doxyref{operator-\/()}{p.}{classsc_1_1vector_1_1iterator_ab23097a7ea7afad292ccabac74deb6fd} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classsc_1_1vector_1_1iterator_a02f38f3e0e43c7cd90efbfa594472d83}} 
+T $\ast$ {\bfseries current}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class sc\+::vector$<$ T $>$\+::iterator}
+
+Public\+: 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classsc_1_1vector_1_1iterator_a1458ba545309c1a05c126619a91b341e}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!iterator@{iterator}}
+\index{iterator@{iterator}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{iterator()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::iterator (\begin{DoxyParamCaption}\item[{T $\ast$}]{ptr = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxyref{vector$<$\+T$>$\+::iterator\+::iterator}{p.}{classsc_1_1vector_1_1iterator_a1458ba545309c1a05c126619a91b341e} object. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & \\
+\hline
+\end{DoxyParams}
+\mbox{\label{classsc_1_1vector_1_1iterator_a692def883ec03a29bd1bc4802f5502c9}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!````~iterator@{$\sim$iterator}}
+\index{````~iterator@{$\sim$iterator}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{$\sim$iterator()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::$\sim$iterator (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destroy the \doxyref{vector$<$\+T$>$\+::iterator\+::iterator}{p.}{classsc_1_1vector_1_1iterator_a1458ba545309c1a05c126619a91b341e} object. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classsc_1_1vector_1_1iterator_afa31948e87f2dc149f75dc881426d1e4}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator"!=()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+bool \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator!= (\begin{DoxyParamCaption}\item[{const \textbf{ iterator} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+iterator \doxyref{operator!=()}{p.}{classsc_1_1vector_1_1iterator_afa31948e87f2dc149f75dc881426d1e4} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a0f9a30267b932d8d036af3adb549978a}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator$\ast$()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \& \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+iterator \doxyref{operator$\ast$()}{p.}{classsc_1_1vector_1_1iterator_a0f9a30267b932d8d036af3adb549978a} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+T\& 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a76f3edd4b565b6468535f0f6044a6b9e}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator+@{operator+}}
+\index{operator+@{operator+}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator+()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator+ (\begin{DoxyParamCaption}\item[{int}]{a }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator+()}{p.}{classsc_1_1vector_1_1iterator_a76f3edd4b565b6468535f0f6044a6b9e} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a9f19af2448110eb42d1db6a68a2f3d26}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator++()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator++()}{p.}{classsc_1_1vector_1_1iterator_a9fb861473bb35bdb5aa22c2b747a314e} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a9fb861473bb35bdb5aa22c2b747a314e}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator++()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator++ (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator++()}{p.}{classsc_1_1vector_1_1iterator_a9fb861473bb35bdb5aa22c2b747a314e} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_ab23097a7ea7afad292ccabac74deb6fd}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator-\/ (\begin{DoxyParamCaption}\item[{int}]{a }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator-\/()}{p.}{classsc_1_1vector_1_1iterator_ab23097a7ea7afad292ccabac74deb6fd} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a2a3e4f55deb640538dcabd18a931cf18}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator-\/ (\begin{DoxyParamCaption}\item[{\textbf{ iterator}}]{rhs }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator-\/()}{p.}{classsc_1_1vector_1_1iterator_ab23097a7ea7afad292ccabac74deb6fd} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_ab6fb0ccc1f87cf45513f31bbb3718487}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator-\/-\/()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator-\/-\/()}{p.}{classsc_1_1vector_1_1iterator_a6b8c7a2cba0c25857d9ad3ef36eea6ca} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a6b8c7a2cba0c25857d9ad3ef36eea6ca}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator-\/-\/()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator-\/-\/()}{p.}{classsc_1_1vector_1_1iterator_a6b8c7a2cba0c25857d9ad3ef36eea6ca} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_a48d6bddda1a592ea840e2af9b11a774c}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator=@{operator=}}
+\index{operator=@{operator=}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator=()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\textbf{ vector}$<$ T $>$\+::\textbf{ iterator} \& \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator= (\begin{DoxyParamCaption}\item[{const \textbf{ iterator} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+iterator \doxyref{operator=()}{p.}{classsc_1_1vector_1_1iterator_a48d6bddda1a592ea840e2af9b11a774c} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+T$>$\+::iterator\& 
+\end{DoxyReturn}
+\mbox{\label{classsc_1_1vector_1_1iterator_ab07bbaaf4a40930a267550652de5e38f}} 
+\index{sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!sc::vector$<$ T $>$::iterator@{sc::vector$<$ T $>$::iterator}}
+\doxysubsubsection{operator==()}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+bool \textbf{ sc\+::vector}$<$ T $>$\+::iterator\+::operator== (\begin{DoxyParamCaption}\item[{const \textbf{ iterator} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+iterator \doxyref{operator==()}{p.}{classsc_1_1vector_1_1iterator_ab07bbaaf4a40930a267550652de5e38f} 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/email/\+Documents/\+Git\+Hub/\+T\+A\+D/include/Vector.\+hpp\item 
+C\+:/\+Users/email/\+Documents/\+Git\+Hub/\+T\+A\+D/include/vector.\+inl\end{DoxyCompactItemize}
