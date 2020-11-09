@@ -4,6 +4,12 @@ namespace sc
 {	
 	#pragma region ////=== [I] SPECIAL MEMBERS
 
+	/**
+	 * @brief Construct a new vector<T>::vector object
+	 * 
+	 * @tparam T 
+	 * @param count 
+	 */
 	template <class T>
 	vector<T>::vector( size_type count )
 	{
@@ -28,6 +34,11 @@ namespace sc
 
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::vector object
+	 * 
+	 * @tparam T 
+	 */
 	template <class T>
 	vector<T>::vector( void )
 	{
@@ -36,6 +47,12 @@ namespace sc
 		m_end = 0; 
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::vector object
+	 * 
+	 * @tparam T 
+	 * @param other 
+	 */
 	template <class T>
 	vector<T>::vector( const vector &other )
 	{
@@ -65,6 +82,12 @@ namespace sc
 		m_capacity = temp_capacity;
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::vector object
+	 * 
+	 * @tparam T 
+	 * @param ilist 
+	 */
 	template <class T>
 	vector<T>::vector( std::initializer_list<T> ilist )
 	{
@@ -96,6 +119,13 @@ namespace sc
 		m_capacity = temp_capacity;
 	}
 	
+	/**
+	 * @brief Construct a new vector<Input It>::vector object
+	 * 
+	 * @tparam InputIt 
+	 * @param first 
+	 * @param last 
+	 */
 	template <class InputIt>
 	vector<InputIt>::vector( InputIt *first, InputIt *last )
 	{
@@ -128,6 +158,11 @@ namespace sc
 		m_capacity = temp_capacity;
 	}
 
+	/**
+	 * @brief Destroy the vector<T>::vector object
+	 * 
+	 * @tparam T 
+	 */
 	template <class T>
 	vector<T>::~vector()
 	{
@@ -141,24 +176,48 @@ namespace sc
 
 	#pragma region  //=== [II] ITERATORS
 
+	/**
+	 * @brief begin()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::begin()
 	{
 		return vector<T>::iterator(m_storage);
 	}
 
+	/**
+	 * @brief end()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::end()
 	{
 		return vector<T>::iterator(m_storage+m_end);
 	}
 
+	/**
+	 * @brief cbegin()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::cbegin() const
 	{
 		return vector<T>::const_iterator(m_storage);
 	}
 
+	/**
+	 * @brief cend()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::cend() const
 	{
@@ -169,19 +228,37 @@ namespace sc
 
 	#pragma region // [III] Capacity
 
+	/**
+	 * @brief empty()
+	 * 
+	 * @tparam T 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::empty()
 	{
 		return m_end == 0;
 	}
 	
+	/**
+	 * @brief size()
+	 * 
+	 * @tparam T 
+	 * @return size_type 
+	 */
 	template <class T>
 	size_type vector<T>::size() const
 	{
 		return m_end;
 	}
 
-	
+	/**
+	 * @brief capacity()
+	 * 
+	 * @tparam T 
+	 * @return size_type 
+	 */
 	template <class T>
 	size_type vector<T>::capacity() const
 	{
@@ -192,6 +269,12 @@ namespace sc
 
 	#pragma region  // [IV] Modifiers 
 
+	/**
+	 * @brief reserve()
+	 * 
+	 * @tparam T 
+	 * @param new_cap 
+	 */
 	template <class T>
 	void vector<T>::reserve(size_type new_cap)
 	{
@@ -212,6 +295,12 @@ namespace sc
 		}
 	}
 
+	/**
+	 * @brief push_back()
+	 * 
+	 * @tparam T 
+	 * @param value 
+	 */
 	template <class T>
 	void vector<T>::push_back( const T& value )
 	{		
@@ -228,6 +317,12 @@ namespace sc
 		}
 	}
 
+	/**
+	 * @brief push_front()
+	 * 
+	 * @tparam T 
+	 * @param value 
+	 */
 	template <typename T>
 	void vector<T>::push_front(const T & value)
 	{	
@@ -246,6 +341,11 @@ namespace sc
 		}
 	}
 	
+	/**
+	 * @brief pop_front()
+	 * 
+	 * @tparam T 
+	 */
 	template <typename T>
 	void vector<T>::pop_front()
 	{
@@ -259,6 +359,11 @@ namespace sc
 		}
 	}
 	
+	/**
+	 * @brief pop_back()
+	 * 
+	 * @tparam T 
+	 */
 	template <typename T>
 	void vector<T>::pop_back()
 	{
@@ -271,6 +376,14 @@ namespace sc
 		}
 	}
 
+	/**
+	 * @brief insert()
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @param value 
+	 * @return vector<T>::iterator 
+	 */
 	template <typename T>
 	typename vector<T>::iterator vector<T>::insert(iterator pos, const T &value)
 	{
@@ -296,6 +409,15 @@ namespace sc
 		return m_storage+distance;
 	}
 
+	/**
+	 * @brief insert()
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @param first 
+	 * @param last 
+	 * @return vector<T>::iterator 
+	 */
 	template <typename T>
 	typename vector<T>::iterator vector<T>::insert(iterator pos,iterator first, iterator last )
 	{
@@ -322,6 +444,14 @@ namespace sc
 		return m_storage+first_index; 
 	}
 
+	/**
+	 * @brief insert()
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @param ilist 
+	 * @return vector<T>::iterator 
+	 */
 	template <typename T>
 	typename vector<T>::iterator vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
 	{
@@ -340,6 +470,11 @@ namespace sc
 		return m_storage+first_index; 
 	}
 
+	/**
+	 * @brief clear()
+	 * 
+	 * @tparam T 
+	 */
 	template <typename T>
 	void vector<T>::clear(void)
 	{
@@ -350,6 +485,13 @@ namespace sc
 		m_storage = new T[m_capacity];
 	}
 
+	/**
+	 * @brief assign()
+	 * 
+	 * @tparam T 
+	 * @param count 
+	 * @param value 
+	 */
 	template <typename T>
 	void vector<T>::assign(size_type count,  const T & value)
 	{
@@ -361,6 +503,13 @@ namespace sc
 
 	}
 
+	/**
+	 * @brief assign()
+	 * 
+	 * @tparam T 
+	 * @param first 
+	 * @param last 
+	 */
 	template <typename T>
 	void vector<T>::assign(iterator first, iterator last)
 	{			
@@ -375,6 +524,12 @@ namespace sc
 		m_end = count;
 	}
 
+	/**
+	 * @brief assign()
+	 * 
+	 * @tparam T 
+	 * @param ilist 
+	 */
 	template <typename T>
 	void vector<T>::assign(std::initializer_list<T> ilist)
 	{	
@@ -391,6 +546,11 @@ namespace sc
 		std::copy(ilist.begin(), ilist.end(), m_storage);	
 	}
 
+	/**
+	 * @brief shrink_to_fit()
+	 * 
+	 * @tparam T 
+	 */
 	template <typename T>
 	void vector<T>::shrink_to_fit(void)
 	{
@@ -402,6 +562,13 @@ namespace sc
 
 	}
 
+	/**
+	 * @brief erase()
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @return vector<T>::iterator 
+	 */
 	template <typename T>
 	typename vector<T>::iterator vector<T>::erase(iterator pos)
 	{
@@ -418,6 +585,14 @@ namespace sc
 		
 	} 
 
+	/**
+	 * @brief erase()
+	 * 
+	 * @tparam T 
+	 * @param first 
+	 * @param last 
+	 * @return vector<T>::iterator 
+	 */
 	template <typename T>
 	typename vector<T>::iterator vector<T>::erase( iterator first, iterator last )
 	{
@@ -431,12 +606,24 @@ namespace sc
 		return m_storage+index;
 	} 
 
+	/**
+	 * @brief front()
+	 * 
+	 * @tparam T 
+	 * @return const T& 
+	 */
 	template <class T>
 	const T &vector<T>::front() const
 	{
 		return *m_storage;
 	}
 
+	/**
+	 * @brief back()
+	 * 
+	 * @tparam T 
+	 * @return const T& 
+	 */
 	template <class T>
 	const T &vector<T>::back() const
 	{
@@ -444,6 +631,13 @@ namespace sc
 		return *valid_l;
 	}
 	
+	/**
+	 * @brief at
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @return T& 
+	 */
 	template <class T>
 	T &vector<T>::at( size_type pos )
 	{
@@ -456,12 +650,26 @@ namespace sc
 		return ( m_storage[pos] );
 	}
 
+	/**
+	 * @brief operator[]()
+	 * 
+	 * @tparam T 
+	 * @param pos 
+	 * @return T& 
+	 */
 	template <class T>
 	T& vector<T>::operator[]( size_type pos )
 	{
 		return m_storage[pos];
 	}
 
+	/**
+	 * @brief operator=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return vector<T>& 
+	 */
 	template <class T>
 	vector<T> &vector<T>::operator=( const vector<T> &rhs )
 	{
@@ -481,6 +689,13 @@ namespace sc
 		return *this;
 	}
 
+	/**
+	 * @brief operator=()
+	 * 
+	 * @tparam T 
+	 * @param ilist 
+	 * @return vector<T>& 
+	 */
 	template <class T>
 	vector<T> &vector<T>::operator=( std::initializer_list<T> ilist )
 	{
@@ -510,6 +725,14 @@ namespace sc
 		m_capacity = temp_capacity;
 	}
 
+	/**
+	 * @brief operator==()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::operator==( const vector &rhs )
 	{
@@ -531,6 +754,14 @@ namespace sc
 		return true;
 	}
 
+	/**
+	 * @brief operator!=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::operator!=( const vector &rhs )
 	{
@@ -544,163 +775,344 @@ namespace sc
 		}
 	}
 	
-
+	/**
+	 * @brief Construct a new vector<T>::iterator::iterator object
+	 * 
+	 * @tparam T 
+	 * @param ptr 
+	 */
 	template <class T>
 	vector<T>::iterator::iterator( T *ptr )
 	{
 		current = ptr;
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::iterator::iterator object
+	 * 
+	 * @tparam T 
+	 * @param itr 
+	 */
 	template <class T>
 	vector<T>::iterator::iterator( const vector<T>::iterator &itr )
 	{
 		current = itr.current;
 	}
 
+	/**
+	 * @brief Destroy the vector<T>::iterator::iterator object
+	 * 
+	 * @tparam T 
+	 */
 	template <class T>
 	vector<T>::iterator::~iterator() = default;
 
+	/**
+	 * @brief iterator operator=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return vector<T>::iterator& 
+	 */
 	template <class T>
 	typename vector<T>::iterator &vector<T>::iterator::operator=( const vector::iterator &rhs )
 	{
 		current = rhs.current;
 	}
 
+	/**
+	 * @brief iterator operator==()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::iterator::operator==( const vector::iterator &rhs ) const
 	{
 		return current == rhs.current;
 	}
 
+	/**
+	 * @brief iterator operator!=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::iterator::operator!=( const vector::iterator &rhs ) const
 	{
 		return current != rhs.current;
 	}
 
+	/**
+	 * @brief iterator operator*()
+	 * 
+	 * @tparam T 
+	 * @return T& 
+	 */
 	template <class T>
 	T &vector<T>::iterator::operator*( void ) const
 	{
 		return *current;
 	}	
 
+	/**
+	 * @brief iterator operator-()
+	 * 
+	 * @tparam T 
+	 * @param a 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator-(int a )
 	{
 		return current-a;
 	}
 
+	/**
+	 * @brief iterator operator-()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return int 
+	 */
 	template <class T>
 	int vector<T>::iterator::operator-(iterator rhs )
 	{
 		return current-rhs.current;
 	}
 
+	/**
+	 * @brief iterator operator+()
+	 * 
+	 * @tparam T 
+	 * @param a 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator+(int a )
 	{
 		return current+a;
 	}
 
+	/**
+	 * @brief iterator operator++()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator++( void )
 	{
 		return ++current;
 	}
 
+	/**
+	 * @brief iterator operator++()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator++( int )
 	{
 		return current++;
 	}
 
+	/**
+	 * @brief iterator operator--()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator--( void )
 	{
 		return --current;
 	}
 
+	/**
+	 * @brief iterator operator--()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::iterator 
+	 */
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator--( int )
 	{
 		return current--;
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::const iterator::const iterator object
+	 * 
+	 * @tparam T 
+	 * @param ptr 
+	 */
 	template <class T>
 	vector<T>::const_iterator::const_iterator( T *ptr )
 	{
 		current = ptr;
 	}
 
+	/**
+	 * @brief Construct a new vector<T>::const iterator::const iterator object
+	 * 
+	 * @tparam T 
+	 * @param itr 
+	 */
 	template <class T>
 	vector<T>::const_iterator::const_iterator( const vector<T>::const_iterator &itr )
 	{
 		current = itr.current;
 	}
 
+	/**
+	 * @brief Destroy the vector<T>::const iterator::const iterator object
+	 * 
+	 * @tparam T 
+	 */
 	template <class T>
 	vector<T>::const_iterator::~const_iterator() = default;
 
+	/**
+	 * @brief cons_iterator operator=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return vector<T>::const_iterator& 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator &vector<T>::const_iterator::operator=( const vector::const_iterator &rhs )
 	{
 		current = rhs.current;
 	}
 
+	/**
+	 * @brief const_iterator operator==()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::const_iterator::operator==( const vector::const_iterator &rhs ) const
 	{
 		return current == rhs.current;
 	}
 
+	/**
+	 * @brief const_iterator operator!=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	template <class T>
 	bool vector<T>::const_iterator::operator!=( const vector::const_iterator &rhs ) const
 	{
 		return current != rhs.current;
 	}
 
+	/**
+	 * @brief const_iterator operator*()
+	 * 
+	 * @tparam T 
+	 * @return const T& 
+	 */
 	template <class T>
 	const T &vector<T>::const_iterator::operator*( void ) const
 	{
 		return *current;
 	}
 
+	/**
+	 * @brief const_iterator operator++()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( void )
 	{
 		return ++current;
 	}
 
+	/**
+	 * @brief const_interator operator-()
+	 * 
+	 * @tparam T 
+	 * @param a 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator-(int a )
 	{
 		return current-a;
 	}
 
+	/**
+	 * @brief const_iterator operator-()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return int 
+	 */
 	template <class T>
 	int vector<T>::const_iterator::operator-(const_iterator rhs )
 	{
 		return current-rhs.current;
 	}
 
+	/**
+	 * @brief const_iterator operator+()
+	 * 
+	 * @tparam T 
+	 * @param a 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator+(int a )
 	{
 		return current+a;
 	}
 
+	/**
+	 * @brief const_iterator operator++()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( int )
 	{
 		return current++;
 	}
 
+	/**
+	 * @brief const_iterator operator--()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( void )
 	{
 		return --current;
 	}
 
+	/**
+	 * @brief const_iterator operator--()
+	 * 
+	 * @tparam T 
+	 * @return vector<T>::const_iterator 
+	 */
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( int )
 	{
