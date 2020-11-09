@@ -1,15 +1,5 @@
 #include "vector.hpp"
 
-namespace tam
-{	
-	void bug(std::string phrase){
-		std::cout << "\e[31;4;1m";
-		std::cout << "~ " << phrase;
-		std::cout << "\e[0m" << std::endl;
-	}
-	
-}
-
 namespace sc
 {	
 	#pragma region ////=== [I] SPECIAL MEMBERS
@@ -19,7 +9,7 @@ namespace sc
 	{
 		m_capacity = 2;
 
-		if( count >= 2 )
+		if( count >= m_capacity )
 		{
 			while( count >= m_capacity)
 			{
@@ -28,32 +18,22 @@ namespace sc
 		}
 
 		// alocating [count] m_storage of type T
-		this->m_storage = new T[m_capacity];
+		m_storage = new T[m_capacity];
 
 		for( int i = 0; i < count; i++ )
 		{
-			if(debug) m_storage[i] = i;			// debug inicializer
-			else m_storage[i] = 0;				// normal inicializer
+			m_storage[i] = 0;
 		}
-		this->m_first = m_storage;
-		this->m_last = m_storage + count;
-		this->m_end = count;
+		m_end = count;
 
-		if(debug) tam::bug( "> vector allocated with sucess!" );
 	}
 
 	template <class T>
 	vector<T>::vector( void )
 	{
-		int temp_capacity = 2;		
-
-		this->m_storage = new T[temp_capacity];
-		this->m_first = m_storage;
-		this->m_last = m_storage;
-		this->m_end = 0; 
-		this->m_capacity = temp_capacity;
-
-		if(debug) tam::bug( "> vector allocated with sucess!" );
+		m_capacity = 2;	
+		m_storage = new T[m_capacity];
+		m_end = 0; 
 	}
 
 	template <class T>
@@ -62,7 +42,7 @@ namespace sc
 		int temp_capacity;
 		if( other.size() > 2 )
 		{
-			temp_capacity = pow( 2, int(log2(other.size())) );
+			temp_capacity = int(2*other.size());
 
 			if( other.size() > temp_capacity )
 			{
@@ -74,17 +54,15 @@ namespace sc
 			temp_capacity = other.size();
 		}
 
-		this->m_storage = new T[temp_capacity];
+		m_storage = new T[temp_capacity];
 
 		for( int i = 0; i < temp_capacity; i++ )
 		{
 			m_storage[i] = other.m_storage[i];	
 		}
 
-		this->m_first = m_storage;
-		this->m_last = m_storage + other.size();
-		this->m_end = other.size();
-		this->m_capacity = temp_capacity;
+		m_end = other.size();
+		m_capacity = temp_capacity;
 	}
 
 	template <class T>
@@ -94,7 +72,7 @@ namespace sc
 
 		if( ilist.size() > 2 )
 		{
-			temp_capacity = pow( 2, int(log2(ilist.size())) );	
+			temp_capacity = int (2*ilist.size());	
 
 			if( ilist.size() > temp_capacity )
 			{
@@ -106,7 +84,7 @@ namespace sc
 			temp_capacity = ilist.size();	
 		}
 
-		this->m_storage = new T[temp_capacity];
+		m_storage = new T[temp_capacity];
 		int buf = 0;
 
 		for( auto *i = ilist.begin(); i < ilist.end(); i++, buf++ )
@@ -114,10 +92,8 @@ namespace sc
 			m_storage[buf] = *i;
 		}
 
-		this->m_first = m_storage;
-		this->m_last = m_storage + ilist.size();
-		this->m_end = ilist.size();
-		this->m_capacity = temp_capacity;
+		m_end = ilist.size();
+		m_capacity = temp_capacity;
 	}
 	
 	template <class InputIt>
@@ -128,7 +104,7 @@ namespace sc
 
 		if( size > 2 )
 		{
-			temp_capacity = pow( 2, int(log2( size )) );
+			temp_capacity = int(2*size);
 
 			if( size > temp_capacity )
 			{
@@ -140,7 +116,7 @@ namespace sc
 			temp_capacity = size;
 		}
 
-		this->m_storage = new InputIt[temp_capacity];
+		m_storage = new InputIt[temp_capacity];
 		int buf = 0;
 
 		for( auto *i = first; i < last; i++, buf++ )
@@ -148,10 +124,8 @@ namespace sc
 			m_storage[buf] = *i;
 		}
 
-		this->m_first = m_storage;
-		this->m_last = m_storage + size;
-		this->m_end = size;
-		this->m_capacity = temp_capacity;
+		m_end = size;
+		m_capacity = temp_capacity;
 	}
 
 	template <class T>
@@ -160,7 +134,6 @@ namespace sc
 		if(m_storage != NULL)
 		{
 			delete[] m_storage;
-			if(debug) tam::bug ( "> vector deleted with sucess!" );
 		}
 	}
 	
@@ -177,7 +150,7 @@ namespace sc
 	template <class T>
 	typename vector<T>::iterator vector<T>::end()
 	{
-		return vector<T>::iterator(m_storage+m_end-1);
+		return vector<T>::iterator(m_storage+m_end);
 	}
 
 	template <class T>
@@ -189,7 +162,7 @@ namespace sc
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::cend() const
 	{
-		return vector<T>::const_iterator(m_storage+m_end-1);
+		return vector<T>::const_iterator(m_storage+m_end);
 	}
 
 	#pragma endregion  //=== [II] ITERATORS
@@ -231,16 +204,11 @@ namespace sc
 			
 			T * temp_storage = new T[m_capacity];
 
-			if(m_storage != m_storage+m_end-1)
-            {
+			std::copy( m_storage, m_storage+m_end, temp_storage );
 
-                std::copy( m_storage, m_storage+m_end-1, temp_storage );
-			
-            }
             delete [] m_storage;
 			
             m_storage = temp_storage;
-
 		}
 	}
 
@@ -250,14 +218,13 @@ namespace sc
 		if( m_end < m_capacity )
 		{
 			m_storage[m_end] = value;
-			m_end += 1;
+			m_end++;
 		} 
 		else 
 		{			
 			reserve( m_capacity * 2 );	
-			m_end += 1;
 			m_storage[m_end] = value;
-			m_end += 1;
+			m_end++;
 		}
 	}
 
@@ -266,14 +233,14 @@ namespace sc
 	{	
 		if( m_end < m_capacity )
 		{
-			std::copy(m_storage, m_storage + m_end - 1, m_storage+1);
+			std::copy(m_storage, m_storage + m_end, m_storage+1);
 			m_storage[0] = value;
 			m_end += 1;
 		} 
 		else 
 		{			
 			reserve( m_capacity * 2 );	
-			std::copy(m_storage, m_storage + m_end - 1, m_storage+1);
+			std::copy(m_storage, m_storage + m_end, m_storage+1);
 			m_storage[0] = value;
 			m_end += 1;
 		}
@@ -283,12 +250,12 @@ namespace sc
 	void vector<T>::pop_front()
 	{
 		if(!empty()){
-			std::copy(m_first+1,m_last,m_first);
+			std::copy(m_storage+1,m_storage+m_end,m_storage);
 			m_end--;
 		}
 		else
 		{
-			throw std::runtime_error("Don't pop an empty vector");
+			throw std::runtime_error("Can't pop an empty vector");
 		}
 	}
 	
@@ -300,7 +267,7 @@ namespace sc
 		}
 		else
 		{
-			throw std::runtime_error("Don't pop an empty vector");
+			throw std::runtime_error("Can't pop an empty vector");
 		}
 	}
 
@@ -312,9 +279,7 @@ namespace sc
 		if(++m_end >= m_capacity)
 		{
 			reserve(m_capacity*2);
-		}
-		
-		if(debug) tam::bug ( "Distance: "  ); std::cout << distance << std::endl;
+		}		
 
 		if(distance == m_end)
 		{
@@ -342,27 +307,13 @@ namespace sc
 		for (auto i = first; i != last; ++i,++index) 
 		{
 			temp_storage[index] = *i;
-		}
-	
-		if(debug)
-		{
-			tam::bug ( "Before : ");
-			std::copy(temp_storage,temp_storage+distance, std::ostream_iterator<int>(std::cout ," "));
-			tam::bug ( "first_index : " ); std::cout << first_index << std::endl;
-		}
+		}	
 
 		reserve(m_end+distance);
 
 		std::copy(m_storage+first_index, m_storage+m_end, m_storage+first_index+distance);
 	
-		m_end += distance;
-		
-		if(debug) 
-		{
-			tam::bug ( "After : ");
-			std::copy(m_storage,m_storage+m_end,	std::ostream_iterator<int>( std::cout ," " ));
-			std::cout << std::endl;
-		}
+		m_end += distance;		
 
 		std::copy(temp_storage,temp_storage+distance,m_storage+first_index);
 	
@@ -375,15 +326,6 @@ namespace sc
 	typename vector<T>::iterator vector<T>::insert(iterator pos,std::initializer_list<T> ilist)
 	{
 		int first_index = pos-m_storage;
-
-		if(debug)
-		{
-			tam::bug ( "Before : ");
-			tam::bug ( "Cap : "); std::cout << capacity() << std::endl;
-			tam::bug ( "size : " ); std::cout << size() << std::endl;
-			std::copy(m_storage,m_storage+m_end, std::ostream_iterator<int>(std::cout ," "));
-			std::cout << std::endl;
-		}
 		
 		if(m_end+ilist.size() > m_capacity)
 		{
@@ -394,15 +336,6 @@ namespace sc
 		std::copy(ilist.begin(), ilist.end(), m_storage+first_index);
 	
 		m_end += ilist.size();
-
-		if(debug) 
-		{
-			tam::bug ( "After : ");
-			tam::bug ( "Cap : "); std::cout << capacity() << std::endl;
-			tam::bug ( "size : "); std::cout << size() << std::endl;
-			std::copy(m_storage, m_storage+m_end, std::ostream_iterator<int>(std::cout ," "));
-			std::cout<< std::endl;
-		}
 
 		return m_storage+first_index; 
 	}
@@ -418,34 +351,33 @@ namespace sc
 	}
 
 	template <typename T>
-	void vector<T>::assign(size_type size,  const T & value)
+	void vector<T>::assign(size_type count,  const T & value)
 	{
-		clear();
-		reserve(size);
-
-		for (size_t i = 0; i < size; ++i) {
+		for (size_t i = 0; i < count; ++i) {
 			m_storage[i] = value;	
 		}
+
+		m_end = count;
 
 	}
 
 	template <typename T>
 	void vector<T>::assign(iterator first, iterator last)
-	{	
-		int distance = last-first;
-		clear();
-		reserve(distance);
-		int index = 0;
-		for (auto i(first);  i != last; ++i,index) 
-		{
-			m_storage[index] = *i;	
-			m_end++;
+	{			
+		int count = 0;
+		for (auto i = first;  i != last; i++) 
+		{				
+			m_storage[count] = *first;
+			first++;
+			count++;
 		}
+
+		m_end = count;
 	}
 
 	template <typename T>
 	void vector<T>::assign(std::initializer_list<T> ilist)
-	{
+	{	
 		if(m_capacity < ilist.size())
 		{
 			while(m_capacity < ilist.size( ))
@@ -453,18 +385,16 @@ namespace sc
 				m_capacity *= 2;	
 			}
 			
-			reserve(m_capacity);
-		}
-
-		clear();	
-		m_end+= ilist.size();
+			reserve(m_capacity);			
+		}		
+		m_end = ilist.size( )+1;
 		std::copy(ilist.begin(), ilist.end(), m_storage);	
 	}
 
 	template <typename T>
 	void vector<T>::shrink_to_fit(void)
 	{
-		m_capacity = pow( 2, int(log2(m_end))+1 );
+		m_capacity = m_end;
 		T *temp_storage = new T[m_end];
 		std::copy(m_storage, m_storage+m_end, temp_storage);
 		delete [] m_storage;
@@ -481,32 +411,22 @@ namespace sc
 			m_end--;
 			return end();
 		}
-
-		if(pos != begin())
-		{
-			std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
-			m_end--;
-			tam::bug ( "debug "); std::cout << index-1 << std::endl;
-			return m_storage+index;
-		}		
-		else //else eh necessario?
-		{
-			std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
-			m_end--;
-			return m_storage;
-		}
+		
+		std::copy(m_storage+index+1, m_storage+m_end, m_storage+index);
+		m_end--;
+		return m_storage+index;
+		
 	} 
 
 	template <typename T>
 	typename vector<T>::iterator vector<T>::erase( iterator first, iterator last )
 	{
-		int index = first-m_first;
-		int index_l = last-m_first;
+		int index = first-m_storage;
+		int index_l = last-m_storage;
 
 		std::copy(m_storage+index_l, m_storage+m_end, m_storage+index);
 
 		m_end -= last-first;
-		m_last -= last-first;
 
 		return m_storage+index;
 	} 
@@ -514,44 +434,48 @@ namespace sc
 	template <class T>
 	const T &vector<T>::front() const
 	{
-		return *(this->m_first);
+		return *m_storage;
 	}
 
 	template <class T>
 	const T &vector<T>::back() const
 	{
-		T *valid_l = this->m_last - 1;
+		T *valid_l = m_storage+m_end-1;
 		return *valid_l;
 	}
 	
 	template <class T>
 	T &vector<T>::at( size_type pos )
 	{
-		return ( this->m_storage[pos] );
+		if(pos >= m_end || pos < 0 /*0 == pos initial*/)
+		{				
+			throw std::out_of_range("Out Of Range, returning last element");						
+			return m_storage[m_end-1];
+		}
+
+		return ( m_storage[pos] );
 	}
 
 	template <class T>
 	T& vector<T>::operator[]( size_type pos )
 	{
-		return this->m_storage[pos]; 
+		return m_storage[pos];
 	}
 
 	template <class T>
 	vector<T> &vector<T>::operator=( const vector<T> &rhs )
 	{
-		if( this->m_end < rhs.m_end )
+		if( m_end < rhs.m_end )
 		{
-			this->reserve( rhs.m_end );
+			reserve( rhs.m_end );
 		}
 
-		this->m_capacity = rhs.m_capacity;
-		this->m_end = rhs.m_end;
-		this->m_first = this->m_storage; 
-		this->m_last = this->m_storage + m_end;
+		m_capacity = rhs.m_capacity;
+		m_end = rhs.m_end;
 
 		for( int i = 0; i < rhs.m_end; i++ )
 		{
-			this->m_storage[i] = rhs.m_storage[i];
+			m_storage[i] = rhs.m_storage[i];
 		}
 
 		return *this;
@@ -560,40 +484,36 @@ namespace sc
 	template <class T>
 	vector<T> &vector<T>::operator=( std::initializer_list<T> ilist )
 	{
+		delete[] m_storage;
+
 		int temp_capacity;
 		if( ilist.size() > 2 )
 		{
-			temp_capacity = pow( 2, int( log2( ilist.size() ) ) );
-			if( ilist.size() > temp_capacity )
-			{
-				temp_capacity *= 2;
-			}
+			temp_capacity = int(2*ilist.size());			
 		} 
 		else 
 		{
 			temp_capacity = ilist.size();
 		}
 
-		this->m_storage = new T[temp_capacity];
+		m_storage = new T[temp_capacity];
 
-		int buf = 0;
-		for( auto i = std::begin(ilist); i != std::end(ilist); i++, buf++ )
+		int idx = 0;
+		for( auto i = std::begin(ilist); i != std::end(ilist); i++)
 		{
-			m_storage[buf] = *i;
+			m_storage[idx] = *i;
+			idx++;
 		}
 
-		this->m_first = m_storage;
-		this->m_last = m_storage + ilist.size();
-		this->m_end = ilist.size();
-		this->m_capacity = temp_capacity;
-
-		if(debug) tam::bug (">> Saiu da função!"); std::cout << std::endl;
+		m_end = size_type(m_storage+ilist.size());
+		m_end = ilist.size();
+		m_capacity = temp_capacity;
 	}
 
 	template <class T>
 	bool vector<T>::operator==( const vector &rhs )
 	{
-		if( rhs.m_end != this->m_end )
+		if( rhs.m_end != m_end )
 		{
 			return false;
 		} 
@@ -601,13 +521,13 @@ namespace sc
 		{
 			for( int i = 0; i < rhs.m_end ; i++ )
 			{
-				if( *(this->m_first+i) != *(rhs.m_first + i) )
+				if( *(m_storage+i) != *(rhs.m_storage + i) )
 				{
 					return false;
 				}
 			}
 		}
-		// if he ever gets to this point, they're equal
+
 		return true;
 	}
 
@@ -628,175 +548,162 @@ namespace sc
 	template <class T>
 	vector<T>::iterator::iterator( T *ptr )
 	{
-		this->current = ptr;
+		current = ptr;
 	}
 
-	template <class U>
-	vector<U>::iterator::iterator( const vector<U>::iterator &itr )
+	template <class T>
+	vector<T>::iterator::iterator( const vector<T>::iterator &itr )
 	{
-		this->current = itr.current;
+		current = itr.current;
 	}
 
-	template <class U>
-	vector<U>::iterator::~iterator() = default;
+	template <class T>
+	vector<T>::iterator::~iterator() = default;
 
 	template <class T>
 	typename vector<T>::iterator &vector<T>::iterator::operator=( const vector::iterator &rhs )
 	{
-		this->current = rhs.current;
+		current = rhs.current;
 	}
 
 	template <class T>
 	bool vector<T>::iterator::operator==( const vector::iterator &rhs ) const
 	{
-		return this->current == rhs.current;
+		return current == rhs.current;
 	}
 
 	template <class T>
 	bool vector<T>::iterator::operator!=( const vector::iterator &rhs ) const
 	{
-		return this->current != rhs.current;
+		return current != rhs.current;
 	}
 
 	template <class T>
 	T &vector<T>::iterator::operator*( void ) const
 	{
-		return *this->current;
-	}
-
-	template <class T>
-	typename vector<T>::iterator vector<T>::iterator::operator++( void )
-	{
-		// ++it
-		return ++this->current;
-	}
+		return *current;
+	}	
 
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator-(int a )
 	{
-		// --it
-		return this->current-a;
+		return current-a;
 	}
 
 	template <class T>
 	int vector<T>::iterator::operator-(iterator rhs )
 	{
-		return this->current-rhs.current;
+		return current-rhs.current;
 	}
 
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator+(int a )
 	{
-		// ++it
-		return this->current+a;
+		return current+a;
+	}
+
+	template <class T>
+	typename vector<T>::iterator vector<T>::iterator::operator++( void )
+	{
+		return ++current;
 	}
 
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator++( int )
 	{
-		// it++
-		return this->current++;
+		return current++;
 	}
 
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator--( void )
 	{
-		// --it
-		return --this->current;
+		return --current;
 	}
 
 	template <class T>
 	typename vector<T>::iterator vector<T>::iterator::operator--( int )
 	{
-		// it--
-		return this->current--;
+		return current--;
 	}
 
 	template <class T>
 	vector<T>::const_iterator::const_iterator( T *ptr )
 	{
-		this->current = ptr;
+		current = ptr;
 	}
 
-	template <class U>
-	vector<U>::const_iterator::const_iterator( const vector<U>::const_iterator &itr )
+	template <class T>
+	vector<T>::const_iterator::const_iterator( const vector<T>::const_iterator &itr )
 	{
-		this->current = itr.current;
-		std::cout << "vector<U>::const_iterator::const_iterator( itr ) created.\n";
+		current = itr.current;
 	}
 
-	template <class U>
-	vector<U>::const_iterator::~const_iterator() = default;
+	template <class T>
+	vector<T>::const_iterator::~const_iterator() = default;
 
 	template <class T>
 	typename vector<T>::const_iterator &vector<T>::const_iterator::operator=( const vector::const_iterator &rhs )
 	{
-		this->current = rhs.current;
+		current = rhs.current;
 	}
 
 	template <class T>
 	bool vector<T>::const_iterator::operator==( const vector::const_iterator &rhs ) const
 	{
-		return this->current == rhs.current;
+		return current == rhs.current;
 	}
 
 	template <class T>
 	bool vector<T>::const_iterator::operator!=( const vector::const_iterator &rhs ) const
 	{
-		return this->current != rhs.current;
+		return current != rhs.current;
 	}
 
 	template <class T>
 	const T &vector<T>::const_iterator::operator*( void ) const
 	{
-		return *this->current;
+		return *current;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( void )
 	{
-		// ++it
-		return ++this->current;
+		return ++current;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator-(int a )
 	{
-		// ++it
-		return this->current-a;
+		return current-a;
 	}
 
 	template <class T>
 	int vector<T>::const_iterator::operator-(const_iterator rhs )
 	{
-		return this->current-rhs.current;
+		return current-rhs.current;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator+(int a )
 	{
-		// ++it
-		return this->current+a;
+		return current+a;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator++( int )
 	{
-		// it++
-		return this->current++;
+		return current++;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( void )
 	{
-		// --it
-		return --this->current;
+		return --current;
 	}
 
 	template <class T>
 	typename vector<T>::const_iterator vector<T>::const_iterator::operator--( int )
 	{
-		// it--
-		return this->current--;
+		return current--;
 	}
 }
