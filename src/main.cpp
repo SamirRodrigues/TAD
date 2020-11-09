@@ -1,63 +1,43 @@
 #include <iostream>
-#include <string>
+#include <random>
+#include <chrono>
+#include "vector.hpp"
 
-#include "../include/TADVector.hpp"
 
-int main ( void )
+namespace client
 {
 	template <class T>
-		void print_it( sc::vector<T> &V, char sep ){
-			for( auto it = V.begin(); it != V.end(); ++it ){
-				std::cout << *it << sep;
-			}
-			std::cout << std::endl;
+	void print_it( sc::vector<T> &V, char sep )
+	{
+		std::cout << "{ ";
+		for( auto it = V.begin(); it != V.end(); it++ ){
+			std::cout << *it << sep;
 		}
-
-	template <class T>
-		void populate( sc::vector<T> &V ){
-			for( auto it = V.begin(); it != V.end(); ++it ){
-				auto seed = 
-					std::chrono::system_clock::now().time_since_epoch().count();
-				std::mt19937 rd (seed);
-				*it = rd() % 1000;
-			}
-		}
-}
-
-// Text Appearance Modifiers
-namespace tam{
-	
-	void sep( void ){
-		std::cout << "\e[2m";
-		for( int i = 0; i < 80; i++ )
-			std::cout << "-";
-		std::cout << "\e[0m";
+		std::cout << "}";
 		std::cout << std::endl;
 	}
 
-	void title(std::string phrase){
-		std::cout << "\e[36;4;1m";
-		std::cout << ">> " << phrase;
-		std::cout << " <<\e[0m" << std::endl;
-	}
-	
-	void bold(std::string phrase){
-		std::cout << "\e[1m";
-		std::cout << "\n> ";
-		std::cout << phrase << " <"<< std::endl;
-		std::cout << "\e[0m";
+	// Populate a given array with random values between [0, 300).
+	template <class T>
+	void populate( sc::vector<T> &V ){
+		for( auto it = V.begin(); it != V.end(); ++it ){
+			auto seed = 
+				std::chrono::system_clock::now().time_since_epoch().count();
+			std::mt19937 rd (seed);
+			*it = rd() % 300;
+		}
 	}
 }
 
-    int a =25;
-    float b=50.5;
 
-	/* Special members tests {{{*/
+int main( void ){
+
+	// Special members tests 
 	{
-		tam::title("Special members tests");
+		tam::title("Special members tests"); std::cout << std::endl;
 
 		{
-			tam::bold("Empty constructor");
+			tam::bold("Empty constructor"); std::cout << std::endl;
 			
 			// Declaration
 			sc::vector<int> EmptyVector; 
@@ -66,7 +46,9 @@ namespace tam{
 			// Populating
 			std::cout << "Populating EmptyVector with push_back()...\n";
 			for( int i = 0; i < 10; i++ )
+			{
 				EmptyVector.push_back(i);
+			}
 
 			// Simple print the object
 			std::cout << "EmptyVector elements: ";
@@ -74,11 +56,12 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Constructor with pre-defined size");
+			tam::bold("Constructor with pre-defined size"); std::cout << std::endl;
 
 			// Declaration
+			std::cout << "sc::vector<int> SizeVector(10);\n";
 			sc::vector<int> SizeVector(10);
-
+			
 			// Populating
 			std::cout << "Populating SizeVector with positive values...\n";
 			for( int i = 0; i < 10; i++ )
@@ -90,19 +73,17 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Copy constructor from a simple array");
+			tam::bold("Copy constructor from a simple array"); std::cout << std::endl;
 
 			// Declaration
 			int Vet[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			sc::vector<int> cVector( Vet, Vet+10 );
-
-			// Simple print
 			std::cout << "Copy vector elements: ";
+			sc::vector<int> cVector( Vet, Vet+10 );
 			client::print_it( cVector, ' ' );
 		}
 		
 		{
-			tam::bold("Copy constructor from another sc::vector");
+			tam::bold("Copy constructor from another sc::vector"); std::cout << std::endl;
 
 			// Declaration
 			sc::vector<int> origVec(10);
@@ -115,7 +96,7 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Object construtor by std::initializer");
+			tam::bold("Object construtor by std::initializer"); std::cout << std::endl;
 			
 			// Declaration
 			sc::vector<int> initVec = { 1, 4, 3, 2, 5, 9, 10 };
@@ -126,7 +107,7 @@ namespace tam{
 		}
 
 		{
-			tam::bold("vector destructor");
+			tam::bold("vector destructor"); std::cout << std::endl;
 			// Declaration
 			sc::vector<int> *V = new sc::vector<int>;
 			std::cout << "vector allocated on " << V << std::endl;
@@ -135,14 +116,76 @@ namespace tam{
 			delete V;
 			std::cout << "vector deleted with sucess!\n";
 		}
+
+		// Assignment Operator tests
+		{
+			tam::bold("Assignment Operator"); std::cout << std::endl;
+
+			sc::vector<int> V = { 11, 13, 12, 15, 14 };
+			sc::vector<int> V2 = { 1, 2, 3, 4, 5 };
+			sc::vector<int> V3 = { 3, 4, 2 };
+
+			std::cout << "Expected >> V = { 11, 13, 12, 15, 14 } " << std::endl;
+			std::cout << "Result >> V = ";			
+			client::print_it(V, ' ');
+			std::cout << "Expected >> V2 = { 1, 2, 3, 4, 5 } " << std::endl;
+			std::cout << "Result >> V2 = ";
+			client::print_it(V2, ' ');
+			std::cout << "Expected >> V3 = { 3, 4, 2 } " << std::endl;
+			std::cout << "Result >> V3 = ";
+			client::print_it(V3, ' ');	
+			
+			std::cout << std::endl << "V = V2" << std::endl;
+			V = V2;
+			std::cout << "V = ";
+			client::print_it(V, ' ');
+			std::cout << "V2 = ";
+			client::print_it(V2, ' ');
+
+			V = { 11, 13, 12, 15, 14 };
+			std::cout << "V = ";
+			client::print_it(V, ' ');
+			std::cout << "V3 = ";
+			client::print_it(V3, ' ');
+		}
+
 		tam::sep();
 	}
 	
-	/* Capacity functions tests {{{*/
+	// Iterators methods tests
 	{
-		tam::title("Capacity functions tests");
+		tam::title("Iterators methods tests");		 std::cout << std::endl;
+		{		
+		tam::bold("Begin & End methods"); std::cout << std::endl;
+		sc::vector<int> V(10);
+		client::populate(V);
+		std::cout << "for loop to print elements in the vector\n";
+
+		std::cout << std::endl;
+		std::cout << "for( auto &it : V ){ std::cout << it << ' '; }" << std::endl;		
+		for( auto &it : V ){ std::cout << it << ' '; }
+
+		std::cout << std::endl << std::endl;
+		std::cout << "Const begin/end:" << std::endl;
+		std::cout << "for( auto it = V.begin(); it != V.end(); it++ ){ std::cout << *it << ' '; }" << std::endl;
+		for( auto it = V.begin(); it != V.end(); it++ ){ std::cout << *it << ' '; }
+
+		std::cout << std::endl << std::endl;
+		std::cout << "Const begin/end: \n(if we try to change a value, it get's a compilation error)\n";
+		std::cout << "for( auto it = V.cbegin(); it != V.cend(); ++it ){ std::cout << *it << ' '; }" << std::endl;
+		for( auto it = V.cbegin(); it != V.cend(); ++it ){ std::cout << *it << ' '; }
+		
+		std::cout << std::endl;
+
+		tam::sep();
+	}
+	}
+	
+	// Capacity methods tests
+	{
+		tam::title("Capacity methods tests"); std::cout << std::endl;
 		{
-			tam::bold("Empty method test");
+			tam::bold("Empty method test"); std::cout << std::endl;
 			// Declaration
 			sc::vector<int> V(10);
 			client::populate(V);
@@ -158,10 +201,8 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Size method test");
-			// declaration
+			tam::bold("Size method test"); std::cout << std::endl;
 			sc::vector<int> V(10);
-			std::cout << "vector V created\n";
 			client::populate(V);
 			std::cout << "vector V has " << V.size() << " elements\n";
 
@@ -172,35 +213,23 @@ namespace tam{
 		}
 		
 		{
-			tam::bold("Capacity method test");
+			tam::bold("Capacity method test"); std::cout << std::endl;
 			// declaration
 			sc::vector<int> V(20);	// this should give a capacity of 2^5
 			std::cout << "vector V created with 20 elements\n";
 			std::cout << "It should have a capacity of 2^(ceil(log2(20)))\n";
 			std::cout << "Capacity: " << V.capacity() << std::endl;
 		}
-
-		{
-			tam::bold("Reserve method test");
-			// declaration
-			sc::vector<int> V(20);
-			std::cout << "vector V created with 20 elements at ";
-			std::cout << &V << std::endl;
-			std::cout << "It has the initial capacity of 2^(ceil(log2(20)))\n";
-			std::cout << "V.capacity() = " << V.capacity() << std::endl;
-			std::cout << "calling reserve(40)...\n";
-			V.reserve(40);	
-			std::cout << "V.capacity() = " << V.capacity() << std::endl;
-		}
+		
 		tam::sep();
 	}
-
-	/* Modifiers functions tests {{{*/
+	
+	// Modifiers methods tests
 	{
-		tam::title("Modifiers functions tests");
+		tam::title("Modifiers methods tests"); std::cout << std::endl;
 
 		{
-			tam::bold("Clear method test");
+			tam::bold("Clear method test"); std::cout << std::endl;
 			// Declaration
 			sc::vector<int> cVec(10);
 			client::populate(cVec);
@@ -214,13 +243,13 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Push_front & push_back method test");
+			tam::bold("Push_front & push_back method test"); std::cout << std::endl;
 			sc::vector<int> pVec = {2, 3, 4};
 			std::cout << "vector pVec elements: ";
 			client::print_it(pVec, ' ');
 
-			pVec.push_back(99);
 			pVec.push_front(-20);
+			pVec.push_back(99);
 
 			std::cout << "After push_back & push_front: ";
 			client::print_it(pVec, ' ');
@@ -228,7 +257,7 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Pop_front & pop_backmethod test");
+			tam::bold("Pop_front & pop_backmethod test"); std::cout << std::endl;
 			// Declaration
 			sc::vector<int> pVec = { 2, 2, 2 };
 			std::cout << "vector pVec elements: ";
@@ -242,38 +271,51 @@ namespace tam{
 		}
 
 		{
-			tam::bold("Insert methods test");
+			tam::bold("Insert methods test"); std::cout << std::endl;
 
 			// Declaration
+			std::cout << "Creating iVec(10)\n";
 			sc::vector<int> iVec(10);
+			std::cout << "Populating iVec with random elements...\n";
 			client::populate(iVec);
+			std::cout<< "iVec =";
+			client::print_it( iVec, ' ' );
 
-			auto it = iVec.begin();
-			int Vet[] = { 10, 3, 4, 2, 10, 11 };
-
+			std::cout << "iVec.insert( iVec.begin(), 10 );\n";
 			iVec.insert( iVec.begin(), 10 );
 			client::print_it( iVec, ' ' );
+
+			std::cout << "\nCreating Vet[] = { 10, 3, 4, 2, 10, 11 };\n";
+			int Vet[] = { 10, 3, 4, 2, 10, 11 };
+			
+			std::cout << "iVec.insert( iVec.begin(), std::begin(Vet), std::end(Vet) );\n";
 			iVec.insert( iVec.begin(), std::begin(Vet), std::end(Vet) );
 			client::print_it( iVec, ' ' );
 
-			 iVec.insert( iVec.begin(), { 10, 20, 30, 40, 50, 60 } );
-			 client::print_it( iVec, ' ' ); 
+			std::cout << "iVec.insert( iVec.begin(), { 10, 20, 30, 40, 50, 60 } );\n";
+			iVec.insert( iVec.begin(), { 10, 20, 30, 40, 50, 60 } );
+			client::print_it( iVec, ' ' ); 
 		}
 
 		{
-			tam::bold("Shrink_to_fit method test");
-			// Declaration
-			sc::vector<int> iVec(10);
-			client::populate(iVec);
-
-			iVec.reserve(40);
-			std::cout << "iVec capacity: " << iVec.capacity() << std::endl;
-			iVec.shrink_to_fit();
-			std::cout << "iVec capacity: " << iVec.capacity() << std::endl;
+			tam::bold("Reserve method test & Shrink_to_fit method test"); std::cout << std::endl;
+			// declaration
+			sc::vector<int> V(20);
+			std::cout << "Vector V created with 20 elements" << std::endl;
+			std::cout << "It has the initial capacity of 2^20 => V.capacity() = ";
+			std::cout << V.capacity() << std::endl;
+			std::cout << "calling reserve(40)...\n";
+			V.reserve(40);	
+			std::cout << "2^40 => V.capacity() = " << V.capacity() << std::endl << std::endl;
+			
+			std::cout << "Using Shrink_to_fit method:" << std::endl;
+			std::cout << "Before = " << V.capacity() << std::endl;
+			V.shrink_to_fit();
+			std::cout << "After = " << V.capacity() << std::endl;
 		}
 
 		{
-			tam::bold("Assign method test");
+			tam::bold("Assign method test"); std::cout << std::endl;
 
 			sc::vector<int> iVec(10);
 			client::populate(iVec);
@@ -284,119 +326,82 @@ namespace tam{
 			client::populate(aVec);
 			std::cout << "aVec elements: ";
 			client::print_it(aVec, ' ');
+						
 
-			 std::cout << "iVec.assign(aVec.begin(), aVec.end()) = ";
-			 iVec.assign(aVec.begin(), aVec.end());
-			 client::print_it(iVec, ' ');
+			std::cout << "\niVec.assign(8, 10) = ";
+			iVec.assign(8, 10);
+			client::print_it(iVec, ' ');			
 
-			std::cout << "iVec.assign(5, 10) = ";
-			iVec.assign(5, 10);
+			std::cout << "iVec.assign({ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }) = ";
+			iVec.assign({ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 });
 			client::print_it(iVec, ' ');
 
-			std::cout << "iVec.assign({ 3, 4, 5, 6, 7, 8 }) = ";
-			iVec.assign({ 3, 4, 5, 6, 7, 8 });
+			std::cout << "iVec.assign(aVec.begin(), aVec.end()) = ";
+			iVec.assign(aVec.begin(), aVec.end());
 			client::print_it(iVec, ' ');
 		}
 
 		{
-			tam::bold("Erase method with iterator");
+			tam::bold("Erase method with iterator"); std::cout << std::endl;
 			sc::vector<int> iVec(10);
 			client::populate(iVec);
-			std::cout << "before elements: ";
+			
+			std::cout << "Before elements: ";
 			client::print_it(iVec, ' ');
-			sc::vector<int>::iterator it = iVec.begin();
-			iVec.erase(it);
+			
+			std::cout << "\niVec.erase(iVec.end())\n" << std::endl;
+			iVec.erase(iVec.end());
+			client::print_it(iVec, ' ');
+			std::cout << "iVec.erase( iVec.begin(), iVec.end() - 3)" << std::endl;
 			iVec.erase( iVec.begin(), iVec.end() - 3);
-			std::cout << "after elements: ";
+			client::print_it(iVec, ' ');
+			
+			std::cout << "\nAfter elements: ";
 			client::print_it(iVec, ' ');
 		}
 		tam::sep();
 	}
 
-	/* Element access functions tests {{{*/
-	{
-		tam::title("Element access functions tests");
-		
+	// Element access methods tests
+	{	
+		tam::title("Element access methods tests"); std::cout << std::endl;
 		{
-			tam::bold("Front, back and at method test");
+			tam::bold("Front, back, [] and at method test"); std::cout << std::endl;
 			sc::vector<int> Vec(10);
 			client::populate(Vec);
 			std::cout << "Vec elements: ";
 			client::print_it(Vec, ' ');
 			std::cout << "Vec.front() = " << Vec.front() << std::endl;
 			std::cout << "Vec.back() = " << Vec.back() << std::endl;
+			std::cout << "Vec[4] = " << Vec[4] << std::endl;
 			std::cout << "Vec.at(2) = " << Vec.at(2) << std::endl;
 		}
-
 		tam::sep();
 	}
 
 	// Operators tests 
 	{
-		tam::title("Operators tests");
-
-		{	
-			sc::vector<int> V = { 1, 3, 2, 5, 4 };
-			sc::vector<int> V2= { 1, 2, 3, 4, 5 };
-			sc::vector<int> V3= { 3, 4, 2 };
-			std::cout << "V = ";
-			client::print_it(V, ' ');
-			std::cout << "V2 = ";
-			client::print_it(V2, ' ');
-
-			std::cout << "V == V2? ";
-			if( V == V2 ){
-				std::cout << "True\n";
-			} else {
-				std::cout << "False\n";
-			}
-			std::cout << "V != V2? ";
-			if( V != V2 ){
-				std::cout << "True\n";
-			} else {
-				std::cout << "False\n";
-			}
-		
-			std::cout << "Acessing V[3]: " << V[3] << std::endl;
-		}
-		tam::sep();
-	}
-
-	// Iterators tests 
-	{
-		tam::title("Iterators tests");
-		
+		tam::title("Operators tests"); std::cout << std::endl;
 		{
-			tam::bold("Begin & End methods");
-			sc::vector<int> V(10);
-			client::populate(V);
-			std::cout << "for loop to print elements in the vector\n";
-			std::cout << "\e[2m(in various forms, check the code to see)\e[0m\n";
-			for( auto &it : V ){
-				std::cout << it << ' ';
-			}
+			tam::bold("\"==\" and \"!=\" test"); std::cout << std::endl;
 
-			std::cout << std::endl;
-			for( auto it = V.begin(); it != V.end(); it++ ){
-				std::cout << *it << ' ';
-			}
+			sc::vector<int> V = { 11, 13, 12, 15, 14 };
+			sc::vector<int> V2 = { 1, 2, 3, 4, 5 };
+			sc::vector<int> V3 = { 3, 4, 2 };
 
-			std::cout << std::endl;
-			for( sc::vector<int>::iterator it = V.begin(); it != V.end(); ++it ){
-				std::cout << *it << ' ';
-			}
+			std::cout << "V = "; client::print_it(V, ' ');
+			std::cout << "V2 = "; client::print_it(V2, ' ');
+			std::cout << "V3 = "; client::print_it(V3, ' ');
 
-			std::cout << std::endl;
-			std::cout << "\nConst print: (if we try to change a value, it get's ";
-			std::cout << "a compilation error)\n";
-			for( sc::vector<int>::const_iterator it = V.cbegin(); it != V.cend(); ++it ){
-				std::cout << *it << ' ';
-			}
-			std::cout << std::endl;
+			std::cout << "\nV == V3 ? ";
+			(V == V3) ? std::cout << "True\n" : std::cout << "False\n";
+
+			std::cout << "V != V2 ? ";			
+			( V != V2 ) ? std::cout << "True\n" : std::cout << "False\n";
 		}
-
 		tam::sep();
 	}
 
-	return 1;
+	return 0;
 }
+
