@@ -2,7 +2,7 @@
 
 namespace sc
 {	
-	#pragma region ////=== [I] SPECIAL MEMBERS
+	#pragma region 	//=== [I] SPECIAL MEMBERS
 
 	/**
 	 * @brief Construct a new vector<T>::vector object
@@ -171,6 +171,71 @@ namespace sc
 			delete[] m_storage;
 		}
 	}
+
+	/**
+	 * @brief operator=()
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return vector<T>& 
+	 */
+	template <class T>
+	vector<T> &vector<T>::operator=( const vector<T> &rhs )
+	{
+		if( m_end < rhs.m_end )
+		{
+			reserve( rhs.m_end );
+		}
+
+		m_capacity = rhs.m_capacity;
+		m_end = rhs.m_end;
+
+		for( int i = 0; i < rhs.m_end; i++ )
+		{
+			m_storage[i] = rhs.m_storage[i];
+		}
+
+		return *this;
+	}
+
+	/**
+	 * @brief operator=()
+	 * 
+	 * @tparam T 
+	 * @param ilist 
+	 * @return vector<T>& 
+	 */
+	template <class T>
+	vector<T> &vector<T>::operator=( std::initializer_list<T> ilist )
+	{
+		delete[] m_storage;
+
+		int temp_capacity;
+		if( ilist.size() > 2 )
+		{
+			temp_capacity = int(2*ilist.size());			
+		} 
+		else 
+		{
+			temp_capacity = ilist.size();
+		}
+
+		m_storage = new T[temp_capacity];
+
+		int idx = 0;
+		for( auto i = std::begin(ilist); i != std::end(ilist); i++)
+		{
+			m_storage[idx] = *i;
+			idx++;
+		}
+
+		m_end = size_type(m_storage+ilist.size());
+		m_end = ilist.size();
+		m_capacity = temp_capacity;
+
+		return *this;
+
+	}
 	
 	#pragma endregion
 
@@ -226,7 +291,7 @@ namespace sc
 
 	#pragma endregion  //=== [II] ITERATORS
 
-	#pragma region // [III] Capacity
+	#pragma region 	//=== [III] Capacity
 
 	/**
 	 * @brief empty()
@@ -267,7 +332,7 @@ namespace sc
 
 	#pragma endregion  // [III] Capacity
 
-	#pragma region  // [IV] Modifiers 
+	#pragma region  //=== [IV] Modifiers 
 
 	/**
 	 * @brief reserve()
@@ -606,6 +671,11 @@ namespace sc
 		return m_storage+index;
 	} 
 
+	#pragma endregion  //=== [IV] Modifiers 
+
+	#pragma region  //=== [V] Element access methods
+ 
+
 	/**
 	 * @brief front()
 	 * 
@@ -663,67 +733,9 @@ namespace sc
 		return m_storage[pos];
 	}
 
-	/**
-	 * @brief operator=()
-	 * 
-	 * @tparam T 
-	 * @param rhs 
-	 * @return vector<T>& 
-	 */
-	template <class T>
-	vector<T> &vector<T>::operator=( const vector<T> &rhs )
-	{
-		if( m_end < rhs.m_end )
-		{
-			reserve( rhs.m_end );
-		}
+	#pragma endregion  //=== [V] Element access methods
 
-		m_capacity = rhs.m_capacity;
-		m_end = rhs.m_end;
-
-		for( int i = 0; i < rhs.m_end; i++ )
-		{
-			m_storage[i] = rhs.m_storage[i];
-		}
-
-		return *this;
-	}
-
-	/**
-	 * @brief operator=()
-	 * 
-	 * @tparam T 
-	 * @param ilist 
-	 * @return vector<T>& 
-	 */
-	template <class T>
-	vector<T> &vector<T>::operator=( std::initializer_list<T> ilist )
-	{
-		delete[] m_storage;
-
-		int temp_capacity;
-		if( ilist.size() > 2 )
-		{
-			temp_capacity = int(2*ilist.size());			
-		} 
-		else 
-		{
-			temp_capacity = ilist.size();
-		}
-
-		m_storage = new T[temp_capacity];
-
-		int idx = 0;
-		for( auto i = std::begin(ilist); i != std::end(ilist); i++)
-		{
-			m_storage[idx] = *i;
-			idx++;
-		}
-
-		m_end = size_type(m_storage+ilist.size());
-		m_end = ilist.size();
-		m_capacity = temp_capacity;
-	}
+	#pragma region  //=== [VI] Operators
 
 	/**
 	 * @brief operator==()
@@ -775,6 +787,10 @@ namespace sc
 		}
 	}
 	
+	#pragma endregion  //=== [VI] Operators
+
+	#pragma region  //=== Iterator
+
 	/**
 	 * @brief Construct a new vector<T>::iterator::iterator object
 	 * 
@@ -947,6 +963,10 @@ namespace sc
 		return current--;
 	}
 
+	#pragma endregion  //=== Iterator
+
+	#pragma region  //=== Const_Iterator
+
 	/**
 	 * @brief Construct a new vector<T>::const iterator::const iterator object
 	 * 
@@ -1118,4 +1138,7 @@ namespace sc
 	{
 		return current--;
 	}
+
+	#pragma endregion  //=== Const_Iterator
+
 }
