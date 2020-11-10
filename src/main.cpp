@@ -166,7 +166,7 @@ int main( void ){
 		for( auto &it : V ){ std::cout << it << ' '; }
 
 		std::cout << std::endl << std::endl;
-		std::cout << "Const begin/end:" << std::endl;
+		std::cout << "Begin/end:" << std::endl;
 		std::cout << "for( auto it = V.begin(); it != V.end(); it++ ){ std::cout << *it << ' '; }" << std::endl;
 		for( auto it = V.begin(); it != V.end(); it++ ){ std::cout << *it << ' '; }
 
