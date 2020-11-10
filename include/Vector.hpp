@@ -1,6 +1,16 @@
+/**
+ * @file vector.hpp
+ * @author Samir Rodrigues & Italo Lima (git @SamirRodrigues & @italo-ce)
+ * @brief Vector Implementation
+ * @version 0.1
+ * @date 2020-11-09
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #ifndef VECTOR_HPP_
 #define VECTOR_HPP_
-#define show false
 #include <iostream>
 #include <stdexcept> // std::out_of_range
 #include <iterator> // std::distance
@@ -218,16 +228,7 @@ namespace sc
 	};
 }
 
-/**
- * @file vector.hpp
- * @author Samir Rodrigues & Italo Lima (git @SamirRodrigues & @italo-ce)
- * @brief Vector Implementation
- * @version 0.1
- * @date 2020-11-09
- * 
- * @copyright Copyright (c) 2020
- * 
- */
+
 
 #include "vector.inl"
 

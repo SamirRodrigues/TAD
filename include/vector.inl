@@ -1,4 +1,16 @@
+/**
+ * @file vector.inl
+ * @author Samir Rodrigues & Italo Lima (git @SamirRodrigues & @italo-ce)
+ * @brief Vector Implementation
+ * @version 0.1
+ * @date 2020-11-09
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #include "vector.hpp"
+
 
 namespace sc
 {	
